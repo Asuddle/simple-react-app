@@ -25,6 +25,9 @@ import AddCompany from '../../pages/company/Add';
 import Kiosk from '../../pages/kiosk/All';
 import AddKiosk from '../../pages/kiosk/Add';
 
+import Class from '../../pages/class/All';
+import AddClass from '../../pages/class/Add';
+
 class Layout extends React.Component {
 	static propTypes = {
 		sidebarStatic: PropTypes.bool,
@@ -103,7 +106,7 @@ class Layout extends React.Component {
 								<CSSTransition key={this.props.location.key} classNames="fade" timeout={200}>
 									<Switch>
 										<Route path="/app" exact render={() => <Redirect to="/app/dashboard" />} />
-										<Route path="/app/dashboard" exact component={Dashboard} />
+										<Route path="/app/dashboard" exact component={Dashboard} exact />
 
 										<Route path={'/app/children'} component={Children} exact />
 										<Route path={'/app/children/add'} component={AddChildren} exact />
@@ -111,11 +114,14 @@ class Layout extends React.Component {
 										<Route path={'/app/family'} component={Family} exact />
 										<Route path={'/app/family/add'} component={AddFamily} exact />
 
-										<Route path={'/app/company'} component={Company} />
-										<Route path={'/app/company/add'} component={AddCompany} />
+										<Route path={'/app/company'} component={Company} exact />
+										<Route path={'/app/company/add'} component={AddCompany} exact />
 
-										<Route path={'/app/kiosk'} component={Kiosk} />
-										<Route path={'/app/kiosk/add'} component={AddKiosk} />
+										<Route path={'/app/kiosk'} component={Kiosk} exact />
+										<Route path={'/app/kiosk/add'} component={AddKiosk} exact />
+
+										<Route path={'/app/class'} component={Class} exact />
+										<Route path={'/app/class/add'} component={AddClass} exact />
 									</Switch>
 								</CSSTransition>
 							</TransitionGroup>

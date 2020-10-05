@@ -136,6 +136,14 @@ class Sidebar extends React.Component {
 								{
 									header: 'Kiosk',
 									link: '/app/kiosk'
+								},
+								{
+									header: 'Class',
+									link: '/app/class'
+								},
+								{
+									header: 'Kiosk',
+									link: '/app/kiosk'
 								}
 							]}
 						>
