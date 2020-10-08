@@ -27,7 +27,7 @@
 		}
 	}
 
-	.nav > .nav-item > .nav-link.bs-tether-target.show {
+	.nav>.nav-item>.nav-link.bs-tether-target.show {
 		display: flex !important;
 	}
 
@@ -151,7 +151,7 @@ legend {
 		font-weight: 700;
 	}
 
-	.list-group-item > & {
+	.list-group-item>& {
 		margin-top: 2px;
 	}
 }
@@ -160,31 +160,31 @@ legend {
 	margin-left: -$table-cell-padding;
 	margin-right: -$table-cell-padding;
 
-	> thead > tr > th,
-	> thead > tr > td,
-	> tbody > tr > th,
-	> tbody > tr > td,
-	> tfoot > tr > th,
-	> tfoot > tr > td {
+	>thead>tr>th,
+	>thead>tr>td,
+	>tbody>tr>th,
+	>tbody>tr>td,
+	>tfoot>tr>th,
+	>tfoot>tr>td {
 		border-top: 0;
 	}
 }
 
-.table-bordered {
-	th {
-		background-color: $text-color !important;
-	}
-}
+// .table-bordered {
+// th {
+// background-color: $text-color !important;
+// }
+// }
 
 .table-sm {
 	font-size: $font-size-sm;
 
-	> thead > tr > th,
-	> thead > tr > td,
-	> tbody > tr > th,
-	> tbody > tr > td,
-	> tfoot > tr > th,
-	> tfoot > tr > td {
+	>thead>tr>th,
+	>thead>tr>td,
+	>tbody>tr>th,
+	>tbody>tr>td,
+	>tfoot>tr>th,
+	>tfoot>tr>td {
 		padding: 6px;
 	}
 
@@ -260,9 +260,11 @@ small {
 	border-radius: 8px;
 	border: none;
 	text-transform: initial;
+
 	&.dropdown-toggle {
 		text-transform: initial;
 	}
+
 	.glyphicon {
 		top: 3px;
 	}
@@ -290,7 +292,7 @@ small {
 	}
 }
 
-.btn > a {
+.btn>a {
 	color: inherit;
 }
 
@@ -302,10 +304,12 @@ small {
 			display: block;
 		}
 	}
+
 	&-menu {
 		border: none;
 		box-shadow: 4px 4px 25px rgba(109, 105, 105, 0.15);
 	}
+
 	cursor: pointer;
 }
 
@@ -454,7 +458,7 @@ small {
 	font-weight: 300;
 	font-size: 30px;
 
-	> .active {
+	>.active {
 		font-weight: 400;
 		color: #323232;
 	}
@@ -462,7 +466,7 @@ small {
 	padding: 0;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb-item+.breadcrumb-item::before {
 	content: ">";
 	color: #323232;
 }
@@ -571,6 +575,7 @@ h6,
 .h4,
 .h5,
 .h6 {
+
 	small,
 	.small {
 		font-weight: $font-weight-thin;
@@ -605,7 +610,7 @@ h6,
 // --------------------------------------------------
 
 .nav-tabs {
-	&.nav-item + .nav-item {
+	&.nav-item+.nav-item {
 		margin-left: 0;
 	}
 
@@ -614,10 +619,10 @@ h6,
 	border-top-left-radius: $border-radius;
 	border-top-right-radius: $border-radius;
 
-	> .nav-item {
+	>.nav-item {
 		margin-bottom: -2px;
 
-		> .nav-link {
+		>.nav-link {
 			padding: 12px 18px;
 			border: none;
 			color: $text-muted;
@@ -635,6 +640,7 @@ h6,
 		}
 
 		.nav-link.open {
+
 			&,
 			&:hover,
 			&:focus {
@@ -644,6 +650,7 @@ h6,
 		}
 
 		.nav-link.active {
+
 			&,
 			&:hover,
 			&:focus {
@@ -662,7 +669,7 @@ h6,
 	z-index: 1;
 	background-color: $white;
 
-	> .tab-pane {
+	>.tab-pane {
 		padding: $spacer * 2;
 	}
 }
@@ -705,7 +712,8 @@ pre {
 	color: #323232;
 	border: 1px solid rgba(#323232, 0.2);
 	border-radius: $border-radius;
-	white-space: pre-line; /* css-3 */
+	white-space: pre-line;
+	/* css-3 */
 
 	// Account for some code outputs that place code tags in pre tags
 	code {
@@ -755,6 +763,7 @@ pre {
 	.Toastify__toast {
 		font-family: Nunito, sans-serif;
 		border-radius: $border-radius;
+
 		&.Toastify__toast--success {
 			background: $success;
 		}
@@ -783,6 +792,7 @@ pre {
 			color: darken($white, 10%);
 		}
 	}
+
 	.btn {
 		font-size: 16px;
 	}

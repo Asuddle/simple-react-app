@@ -61,7 +61,7 @@ class Sidebar extends React.Component {
 				id={'sidebar-drawer'}
 			>
 				<nav className={s.root}>
-					<header className={s.logo}>Project Here</header>
+					<header className={s.logo}>KndLogs</header>
 					<ul className={s.nav}>
 						<LinksGroup
 							onActiveSidebarItemChange={(activeItem) =>
@@ -132,10 +132,6 @@ class Sidebar extends React.Component {
 								{
 									header: 'Company',
 									link: '/app/company'
-								},
-								{
-									header: 'Kiosk',
-									link: '/app/kiosk'
 								},
 								{
 									header: 'Class',

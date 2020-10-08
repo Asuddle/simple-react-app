@@ -31,24 +31,16 @@ class All extends Component {
 				text: 'Product ID'
 			},
 			{
-				dataField: 'name',
-				text: 'Child Name'
+				dataField: 'email',
+				text: 'Email'
 			},
 			{
-				dataField: 'price',
-				text: 'Family Name'
+				dataField: 'phone',
+				text: 'Phone'
 			},
 			{
-				dataField: 'price',
-				text: 'Age'
-			},
-			{
-				dataField: 'class',
-				text: 'Class'
-			},
-			{
-				dataField: 'class',
-				text: 'In/Out'
+				dataField: 'Date Of Birth',
+				text: 'dob'
 			}
 		];
 

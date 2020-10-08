@@ -20,7 +20,7 @@ class All extends Component {
 		);
 	}
 	handleAdd = () => {
-		this.props.history.push('children/add');
+		this.props.history.push('class/add');
 	};
 	render() {
 		const products = [ { id: 1, name: 'abcd', price: '12' }, { id: 2, name: 'da', price: '12' } ];
@@ -30,24 +30,20 @@ class All extends Component {
 				text: 'Product ID'
 			},
 			{
-				dataField: 'name',
-				text: 'Child Name'
+				dataField: 'classNAme',
+				text: 'Class Name'
 			},
 			{
-				dataField: 'price',
-				text: 'Family Name'
+				dataField: 'from',
+				text: 'From Age'
 			},
 			{
-				dataField: 'price',
-				text: 'Age'
+				dataField: 'to',
+				text: 'To Age'
 			},
 			{
-				dataField: 'class',
-				text: 'Class'
-			},
-			{
-				dataField: 'class',
-				text: 'In/Out'
+				dataField: 'Capacity',
+				text: 'capacity'
 			}
 		];
 

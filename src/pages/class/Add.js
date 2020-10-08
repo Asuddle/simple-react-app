@@ -32,7 +32,7 @@ export default class Add extends Component {
 					<Col md={12}>
 						<h5>Class Name</h5>
 					</Col>
-					<Col md={6}>
+					<Col md={12}>
 						<FormGroup>
 							<Input
 								type="text"

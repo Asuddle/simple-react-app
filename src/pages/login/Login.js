@@ -43,30 +43,34 @@ class Login extends React.Component {
 	};
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('dasdsa');
+
 		let header = {
 			'Content-Type': 'application/json-patch+json'
 			// 'Access-Control-Allow-Origin': '*'
 		};
-		axios
-			.post('http://kndlgs.com/api/auth/login', JSON.stringify(this.state), { headers: header })
-			.then((response) => {
-				console.log(response);
-				localStorage.setItem('authenticated', response.data.token);
-				toast.success('Authenticated');
-				this.props.history.push('app/dashboard');
-			})
-			.catch((error) => {
-				console.log('=======', JSON.stringify(error.message));
-				toast.error(error.message);
-				// console.log('erro', error);
-			});
+
+		localStorage.setItem('authenticated', 'asdasasasasdasdasdasd');
+		toast.success('Authenticated');
+		this.props.history.push('app/dashboard');
+		// axios
+		// 	.post('http://kndlgs.com/api/auth/login', JSON.stringify(this.state), { headers: header })
+		// 	.then((response) => {
+		// 		console.log(response);
+		// 		localStorage.setItem('authenticated', response.data.token);
+		// 		toast.success('Authenticated');
+		// 		this.props.history.push('app/dashboard');
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log('=======', JSON.stringify(error.message));
+		// 		toast.error(error.message);
+		// 		// console.log('erro', error);
+		// 	});
 	};
 
 	render() {
 		toast.configure();
 		const { from } = this.props.location.state || { from: { pathname: '/app' } }; // eslint-disable-line
-		if (JSON.parse(localStorage.getItem('authenticated'))) {
+		if (localStorage.getItem('authenticated')) {
 			return <Redirect to={from} />;
 		}
 		// cant access login page while logged in

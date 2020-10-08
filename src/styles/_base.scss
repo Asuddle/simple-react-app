@@ -14,6 +14,7 @@
 }
 
 .input-group.focus {
+
 	.input-group-addon,
 	input {
 		background-color: #f1f1f1;
@@ -70,7 +71,7 @@
 	position: relative;
 	margin: 0 (-$widget-padding-horizontal);
 
-	> img {
+	>img {
 		max-width: 100%;
 	}
 }
@@ -81,12 +82,12 @@
 	border-top-right-radius: $border-radius;
 	overflow: hidden;
 
-	> img {
+	>img {
 		border-top-left-radius: $border-radius;
 		border-top-right-radius: $border-radius;
 	}
 
-	> .btn {
+	>.btn {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -118,7 +119,7 @@
 	background-color: $gray-300;
 }
 
-table > thead > tr > th {
+table>thead>tr>th {
 	border-top: none !important;
 	background: #8ac7db !important;
 	color: white !important;
@@ -129,16 +130,16 @@ table > thead > tr > th {
 .pagination {
 	font-weight: $font-weight-normal;
 
-	> .page-item {
+	>.page-item {
 		display: inline; // Remove list-style and block-level defaults
 
-		> .page-link,
-		> span {
+		>.page-link,
+		>span {
 			border-radius: $border-radius;
 			margin: 0 2px;
 		}
 
-		> .page-link {
+		>.page-link {
 			text-decoration: none;
 			border: none;
 		}
@@ -156,7 +157,7 @@ table > thead > tr > th {
 	display: inline-block;
 	padding-right: 1.25rem;
 
-	& + .stat-item {
+	&+.stat-item {
 		padding-left: 1.25rem;
 		border-left: 1px solid $hr-border-color;
 	}
@@ -179,7 +180,7 @@ table > thead > tr > th {
 .widget-container {
 	min-height: 30px;
 
-	.widget:not(.fullscreened) > header {
+	.widget:not(.fullscreened)>header {
 		cursor: move;
 	}
 }
@@ -198,7 +199,8 @@ table > thead > tr > th {
 	background: rgba($white, 0.4) !important;
 	border: 1px dashed $gray-600 !important;
 	margin: -1px -1px calc(#{$grid-gutter-width} - 1px) -1px !important;
-	> * {
+
+	>* {
 		opacity: 0;
 	}
 }
@@ -212,11 +214,11 @@ table > thead > tr > th {
 
 	@include clearfix();
 
-	> li {
+	>li {
 		float: left;
 		list-style: none;
 
-		+ li {
+		+li {
 			&::before {
 				color: #999;
 				content: '\25cf';
@@ -224,7 +226,7 @@ table > thead > tr > th {
 			}
 		}
 
-		> a {
+		>a {
 			text-decoration: none;
 			color: $text-muted;
 
@@ -234,7 +236,7 @@ table > thead > tr > th {
 		}
 	}
 
-	&.no-separator > li + li {
+	&.no-separator>li+li {
 		margin-left: 12px;
 
 		&::before {
@@ -253,7 +255,7 @@ table > thead > tr > th {
 
 	@include clearfix();
 
-	> li {
+	>li {
 		padding: 10px;
 		border-top: 1px solid #e7e7e7;
 		list-style: none;
@@ -279,11 +281,11 @@ table > thead > tr > th {
 		overflow: auto;
 	}
 
-	h6.author > small {
+	h6.author>small {
 		font-size: 11px;
 	}
 
-	.widget > footer & {
+	.widget>footer & {
 		margin-left: -$widget-padding-horizontal;
 		margin-right: -$widget-padding-horizontal;
 	}
