@@ -4,7 +4,7 @@ import getData from '../../components/getData';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { withRouter } from 'react-router';
-
+import country from '../../../src/country.js';
 class Add extends Component {
 	constructor(props) {
 		super(props);
@@ -162,14 +162,12 @@ class Add extends Component {
 					</Col>
 					<Col md={6}>
 						<FormGroup>
-							<Input
-								type="text"
-								name="country"
-								value={this.state.address.country}
-								onChange={(e) => {
-									this.handleAddress(e);
-								}}
-							/>
+							<Input type="select" name="country" onChange={(e) => this.handleSelect(e)}>
+								<option value="">Select Country</option>
+								{country.map((item) => {
+									return <option value={item.value}>{item.text}</option>;
+								})}
+							</Input>
 							<Label>Country</Label>
 						</FormGroup>
 					</Col>
