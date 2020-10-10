@@ -40,7 +40,6 @@ class Add extends Component {
 			},
 			JSON.stringify(this.state)
 		);
-		console.log('state here', this.state);
 	};
 	handleChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });

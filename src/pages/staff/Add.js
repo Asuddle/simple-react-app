@@ -1,55 +1,56 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import getData from '../../components/getData';
+import { withRouter } from 'react-router';
 class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			lastName: '',
 			firstName: '',
-			gender: '',
-			DOB: '',
-			notes: ''
+			lastName: '',
+			dob: '',
+			classRoom: '',
+			position: '',
+			notes: '',
+			pin: ''
 		};
 		this.method = 'post';
 	}
-
 	componentDidMount() {
 		if (typeof this.props.match.params.id !== 'undefined') {
 			this.method = 'patch';
 			getData(
 				'get',
-				`Children/${this.props.match.params.id}`,
+				`Staff/${this.props.match.params.id}`,
 				(data) => {
 					this.setState({ ...data.data.data });
 				},
 				(error) => {
 					console.log(error);
-				},
-				JSON.stringify(this.state)
+				}
 			);
-		}
+		} else this.setState({ pin: Math.floor(1000 + Math.random() * 9000) });
 	}
+	handleChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+	handleRadio = (e) => {
+		this.setState({ reporting: e.target.id });
+	};
 	handleSubmit = () => {
 		getData(
 			this.method,
-			this.method === 'patch' ? `Children/${this.props.match.params.id}` : 'Children',
-			// 'Children',
+			this.method === 'patch' ? `Staff/${this.props.match.params.id}` : 'Staff',
 			(data) => {
-				this.props.history.push('/app/Children');
+				this.props.history.push('/app/staff');
 			},
 			(error) => {
 				console.log(error);
 			},
 			JSON.stringify(this.state)
 		);
-	};
-	handleChange = (e) => {
-		this.setState({ [e.target.name]: e.target.value });
-	};
-	handleSelect = (e) => {
-		console.log(e.target.value);
 	};
 	render() {
 		return (
@@ -64,7 +65,6 @@ class Add extends Component {
 								type="text"
 								name="firstName"
 								value={this.state.firstName}
-								id="exampleEmail"
 								onChange={(e) => {
 									this.handleChange(e);
 								}}
@@ -88,32 +88,74 @@ class Add extends Component {
 				</Row>
 				<Row form>
 					<Col md={12}>
-						<h5>Gender</h5>
+						<h5>Date Of Birth</h5>
+					</Col>
+					<Col md={12}>
+						<FormGroup className={'customInputWidth'}>
+							<Input
+								type="date"
+								value={this.state.dob}
+								name="dob"
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
+					</Col>
+				</Row>
+				<Row form>
+					<Col md={12}>
+						<h5>Class Room Dropdown </h5>
 					</Col>
 					<Col md={12}>
 						<FormGroup>
 							<Input
 								type="select"
-								name="gender"
-								value={this.state.gender}
+								name="classRoom"
+								value={this.state.classRoom}
 								onChange={(e) => this.handleChange(e)}
 							>
 								<option value="">Select</option>
-								<option value="female">Female</option>
-								<option value="male">male</option>
+								{[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].map((item) => {
+									return <option value={item}>{item}</option>;
+								})}
 							</Input>
 						</FormGroup>
 					</Col>
+				</Row>
+				<Row form>
 					<Col md={12}>
-						<h5>Date Of Birth</h5>
+						<h5>Position Dropdown </h5>
 					</Col>
 					<Col md={12}>
 						<FormGroup>
 							<Input
-								type="date"
-								name="DOB"
-								value={this.state.DOB}
+								type="select"
+								name="position"
+								value={this.state.position}
 								onChange={(e) => this.handleChange(e)}
+							>
+								<option value="">Select</option>
+								{[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].map((item) => {
+									return <option value={item}>{item}</option>;
+								})}
+							</Input>
+						</FormGroup>
+					</Col>
+				</Row>
+				<Row form>
+					<Col md={12}>
+						<h5>Auto Generated Pin (4 digit)</h5>
+					</Col>
+					<Col md={12}>
+						<FormGroup>
+							<Input
+								type="text"
+								name="pin"
+								value={this.state.pin}
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
 							/>
 						</FormGroup>
 					</Col>
@@ -142,4 +184,5 @@ class Add extends Component {
 		);
 	}
 }
+
 export default withRouter(Add);

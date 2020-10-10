@@ -25,7 +25,6 @@ class Add extends Component {
 				'get',
 				`Family/${this.props.match.params.id}`,
 				(data) => {
-					console.log(data.data.data);
 					this.setState({ ...data.data.data });
 				},
 				(error) => {
@@ -41,7 +40,6 @@ class Add extends Component {
 		this.setState({ reporting: e.target.id });
 	};
 	handleSubmit = () => {
-		console.log(this.state);
 		getData(
 			this.method,
 			this.method === 'patch' ? `Family/${this.props.match.params.id}` : 'Family',
@@ -55,7 +53,6 @@ class Add extends Component {
 		);
 	};
 	render() {
-		console.log('state', this.state);
 		return (
 			<Form>
 				<Row form>

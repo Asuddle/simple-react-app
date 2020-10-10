@@ -4,6 +4,7 @@ import children from './JSON/children.json';
 import classes from './JSON/class.json';
 import family from './JSON/family.json';
 import company from './JSON/company.json';
+import staff from './JSON/staff.json';
 
 let meta = {
 	current_page: 1,
@@ -97,6 +98,20 @@ export default function() {
 			this.post('/Company', (schema, request) => post(company, request));
 			this.patch('/Company/:id', (schema, request) => update(company, request));
 			this.delete('/Company/:id', (schema, request) => remove(company, request));
+
+			this.get('/Staff', () => ({
+				status: 200,
+				data: staff.data,
+				meta: meta
+			}));
+			this.get('/Staff/:id', (schema, request) => {
+				return {
+					data: getOne(staff, request)
+				};
+			});
+			this.post('/Staff', (schema, request) => post(staff, request));
+			this.patch('/Staff/:id', (schema, request) => update(staff, request));
+			this.delete('/Staff/:id', (schema, request) => remove(staff, request));
 		}
 	});
 }

@@ -20,6 +20,8 @@ import logo from '../../images/logo.svg';
 import settingsIcon from '../../images/settings.svg';
 import logoutIcon from '../../images/logout.svg';
 import accountIcon from '../../images/account.svg';
+import stockIcon from '../../images/stocks.svg';
+import orderIcon from '../../images/orders.svg';
 
 class Sidebar extends React.Component {
 	static propTypes = {
@@ -81,13 +83,13 @@ class Sidebar extends React.Component {
 					</ul>
 					<hr />
 					<ul className={s.nav}>
-						{/* <LinksGroup
+						<LinksGroup
 							onActiveSidebarItemChange={(activeItem) =>
 								this.props.dispatch(changeActiveSidebarItem(activeItem))}
 							activeItem={this.props.activeItem}
-							header="Typography"
+							header="Children"
 							isHeader
-							link="/app/typography"
+							link="/app/children"
 							index="main"
 						>
 							{window.location.href.includes('typography') ? (
@@ -100,9 +102,9 @@ class Sidebar extends React.Component {
 							onActiveSidebarItemChange={(activeItem) =>
 								this.props.dispatch(changeActiveSidebarItem(activeItem))}
 							activeItem={this.props.activeItem}
-							header="Tables"
+							header="Family"
 							isHeader
-							link="/app/tables"
+							link="/app/family"
 							index="main"
 						>
 							{window.location.href.includes('tables') ? (
@@ -110,38 +112,42 @@ class Sidebar extends React.Component {
 							) : (
 								<img src={lightTables} alt="lightDashboard" width={'24px'} height={'24px'} />
 							)}
-						</LinksGroup> */}
+						</LinksGroup>
 						<LinksGroup
 							onActiveSidebarItemChange={(activeItem) =>
 								this.props.dispatch(changeActiveSidebarItem(activeItem))}
 							activeItem={this.props.activeItem}
-							header="Modules"
+							header="Company"
 							isHeader
-							link="/app"
+							link="/app/company"
 							index="app"
 							exact={false}
-							childrenLinks={[
-								{
-									header: 'Children',
-									link: '/app/children'
-								},
-								{
-									header: 'Family',
-									link: '/app/family'
-								},
-								{
-									header: 'Company',
-									link: '/app/company'
-								},
-								{
-									header: 'Class',
-									link: '/app/class'
-								},
-								{
-									header: 'Kiosk',
-									link: '/app/kiosk'
-								}
-							]}
+							// 	childrenLinks={[
+							// 		{
+							// 			header: 'Children',
+							// 			link: '/app/children'
+							// 		},
+							// 		{
+							// 			header: 'Family',
+							// 			link: '/app/family'
+							// 		},
+							// 		{
+							// 			header: 'Company',
+							// 			link: '/app/company'
+							// 		},
+							// 		{
+							// 			header: 'Class',
+							// 			link: '/app/class'
+							// 		},
+							// 		{
+							// 			header: 'Staff',
+							// 			link: '/app/staff'
+							// 		},
+							// 		{
+							// 			header: 'Kiosk',
+							// 			link: '/app/kiosk'
+							// 		}
+							// 	]}
 						>
 							{window.location.href.includes('ui') ? (
 								<img src={darkUI} alt="lightDashboard" width={'24px'} height={'24px'} />
@@ -149,25 +155,39 @@ class Sidebar extends React.Component {
 								<img src={lightUI} alt="lightDashboard" width={'24px'} height={'24px'} />
 							)}
 						</LinksGroup>
-					</ul>
-					<ul className={s.downNav}>
-						{/* <LinksGroup
+						<LinksGroup
 							onActiveSidebarItemChange={(activeItem) =>
 								this.props.dispatch(changeActiveSidebarItem(activeItem))}
-							header="Settings"
+							header="Class"
 							isHeader
-							index="main"
+							link="/app/class"
+							index="app"
 						>
 							<img src={settingsIcon} alt="lightDashboard" width={'24px'} height={'24px'} />
 						</LinksGroup>
 						<LinksGroup
 							onActiveSidebarItemChange={(activeItem) =>
 								this.props.dispatch(changeActiveSidebarItem(activeItem))}
-							header="Account"
+							header="Staff"
 							isHeader
+							link="/app/staff"
+							index="app"
 						>
 							<img src={accountIcon} alt="lightDashboard" width={'24px'} height={'24px'} />
-						</LinksGroup> */}
+						</LinksGroup>
+						<LinksGroup
+							onActiveSidebarItemChange={(activeItem) =>
+								this.props.dispatch(changeActiveSidebarItem(activeItem))}
+							header="Kiosk"
+							isHeader
+							link="/app/kiosk"
+							index="app"
+						>
+							<img src={orderIcon} alt="lightDashboard" width={'24px'} height={'24px'} />
+						</LinksGroup>
+					</ul>
+					<hr />
+					<ul className={s.downNav}>
 						<LinksGroup
 							onActiveSidebarItemChange={(activeItem) =>
 								this.props.dispatch(changeActiveSidebarItem(activeItem))}

@@ -28,6 +28,9 @@ import AddKiosk from '../../pages/kiosk/Add';
 import Class from '../../pages/class/All';
 import AddClass from '../../pages/class/Add';
 
+import Staff from '../../pages/staff/All';
+import AddStaff from '../../pages/staff/Add';
+
 class Layout extends React.Component {
 	static propTypes = {
 		sidebarStatic: PropTypes.bool,
@@ -127,6 +130,10 @@ class Layout extends React.Component {
 										<Route path={'/app/class'} component={Class} exact />
 										<Route path={'/app/class/add'} component={AddClass} exact />
 										<Route path={'/app/class/:id/edit'} component={AddClass} exact />
+
+										<Route path={'/app/staff'} component={Staff} exact />
+										<Route path={'/app/staff/add'} component={AddStaff} exact />
+										<Route path={'/app/staff/:id/edit'} component={AddStaff} exact />
 									</Switch>
 								</CSSTransition>
 							</TransitionGroup>

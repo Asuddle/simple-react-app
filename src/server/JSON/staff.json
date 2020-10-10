@@ -1,0 +1,18 @@
+{
+	"data": [
+		{
+			"id": 1,
+			"firstName": "string",
+			"lastName": "string",
+			"dob": "12-12-12",
+			"classRoom": "1",
+			"position": "2",
+			"notes": "dasdasdas dasd asdas dasdas ",
+			"pin": "1222"
+		}
+	],
+	"meta": {
+		"total": 1
+	},
+	"links": {}
+}
