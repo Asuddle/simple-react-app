@@ -81,10 +81,10 @@ class Table extends Component {
 	};
 	render() {
 		return (
-			<React.Fragment>
+			<div>
 				<Button
 					color="success"
-					className="float-right"
+					// className="float-right"
 					onClick={() => {
 						this.props.history.push(this.props.addRoute);
 					}}
@@ -92,16 +92,20 @@ class Table extends Component {
 					Add New +
 				</Button>
 				<br />
-				<BootstrapTable
-					selectRow={{ mode: 'checkbox' }}
-					striped
-					hover
-					condensed
-					keyField="id"
-					data={this.state.data}
-					columns={this.state.columns}
-					defaultSorted="id"
-				/>
+				<br />
+				<div className="custom-table-res">
+					<BootstrapTable
+						selectRow={{ mode: 'checkbox' }}
+						striped
+						hover
+						responsive
+						condensed
+						keyField="id"
+						data={this.state.data}
+						columns={this.state.columns}
+						defaultSorted="id"
+					/>
+				</div>
 				<Modal isOpen={this.state.modal} toggle={this.handleModal}>
 					<ModalHeader toggle={this.handleModal}>Delete</ModalHeader>
 					<ModalBody>Are you sure you want to delete this item?</ModalBody>
@@ -114,7 +118,7 @@ class Table extends Component {
 						</Button>
 					</ModalFooter>
 				</Modal>
-			</React.Fragment>
+			</div>
 		);
 	}
 }

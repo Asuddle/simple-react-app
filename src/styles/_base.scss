@@ -114,6 +114,11 @@
 		padding-right: $widget-padding-horizontal;
 	}
 }
+.custom-table-res {
+	.react-bootstrap-table {
+		overflow-x: scroll;
+	}
+}
 
 .table-bordered th {
 	background-color: $gray-300;
