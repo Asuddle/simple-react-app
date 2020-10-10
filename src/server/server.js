@@ -3,6 +3,7 @@ import { remove, getOne, post, update } from './serverHelper';
 import children from './JSON/children.json';
 import classes from './JSON/class.json';
 import family from './JSON/family.json';
+import company from './JSON/company.json';
 
 let meta = {
 	current_page: 1,
@@ -82,6 +83,20 @@ export default function() {
 			this.post('/Family', (schema, request) => post(family, request));
 			this.patch('/Family/:id', (schema, request) => update(family, request));
 			this.delete('/Family/:id', (schema, request) => remove(family, request));
+
+			this.get('/Company', () => ({
+				status: 200,
+				data: company.data,
+				meta: meta
+			}));
+			this.get('/Company/:id', (schema, request) => {
+				return {
+					data: getOne(company, request)
+				};
+			});
+			this.post('/Company', (schema, request) => post(company, request));
+			this.patch('/Company/:id', (schema, request) => update(company, request));
+			this.delete('/Company/:id', (schema, request) => remove(company, request));
 		}
 	});
 }

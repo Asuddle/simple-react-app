@@ -1,20 +1,40 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
-
+import Table from '../../components/Table';
 export default class All extends Component {
 	render() {
+		const columns = [
+			{
+				dataField: 'id',
+				text: 'Product ID'
+			},
+			{
+				dataField: 'companyName',
+				text: 'Company Name'
+			},
+			{
+				dataField: 'name',
+				text: 'Name',
+				formatter: (cell, row, rowIndex, formatExtraData) => {
+					return (
+						<span>
+							{row.firstName} {row.lastName}
+						</span>
+					);
+				}
+			},
+			// {
+			// 	dataField: 'address',
+			// 	text: 'Address'
+			// },
+			{
+				dataField: 'email',
+				text: 'Email'
+			}
+		];
+
 		return (
 			<div>
-				<Button
-					color="primary"
-					className={`float-right`}
-					onClick={() => {
-						this.props.history.push('company/add');
-					}}
-				>
-					Add New +
-				</Button>
-				<div>company</div>
+				<Table buttonEntity="company" columns={columns} entity="Company" addRoute={`company/add`} />
 			</div>
 		);
 	}

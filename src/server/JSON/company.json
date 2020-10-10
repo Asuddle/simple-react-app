@@ -1,0 +1,28 @@
+{
+	"data": [
+		{
+			"id": 1,
+			"firstName": "dasdas",
+			"lastName": "dasdasd",
+			"companyName": "dasdas",
+			"address": {
+				"address1": "addr1",
+				"address2": "addr2",
+				"city": "uk",
+				"state": "dstate",
+				"postalCode": "12313",
+				"country": "pakistan"
+			},
+			"centerName": "dasdas",
+			"name": "dasdas",
+			"phone": "9212121212",
+			"email": "dasdas",
+			"centerType": "dasdas",
+			"logo": "dasdas"
+		}
+	],
+	"meta": {
+		"total": 1
+	},
+	"links": {}
+}

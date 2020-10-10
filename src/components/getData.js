@@ -55,7 +55,7 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 			}
 		})
 			.then((res) => {
-				toast.success('Added Successfully');
+				toast.success('Edited Successfully');
 				if (callback !== null) {
 					callback(res);
 				}
