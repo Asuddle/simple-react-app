@@ -175,7 +175,7 @@ class Sidebar extends React.Component {
 						>
 							<img src={accountIcon} alt="lightDashboard" width={'24px'} height={'24px'} />
 						</LinksGroup>
-						<LinksGroup
+						{/* <LinksGroup
 							onActiveSidebarItemChange={(activeItem) =>
 								this.props.dispatch(changeActiveSidebarItem(activeItem))}
 							header="Kiosk"
@@ -184,7 +184,7 @@ class Sidebar extends React.Component {
 							index="app"
 						>
 							<img src={orderIcon} alt="lightDashboard" width={'24px'} height={'24px'} />
-						</LinksGroup>
+						</LinksGroup> */}
 					</ul>
 					<hr />
 					<ul className={s.downNav}>
