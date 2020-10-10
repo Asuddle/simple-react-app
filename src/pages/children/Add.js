@@ -1,33 +1,55 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import getData from '../../components/getData';
-export default class Add extends Component {
-	state = {
-		lastName: '',
-		firstName: '',
-		gender: '',
-		DOB: '',
-		notes: ''
-	};
+class Add extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			lastName: '',
+			firstName: '',
+			gender: '',
+			DOB: '',
+			notes: ''
+		};
+		this.method = 'post';
+	}
+
+	componentDidMount() {
+		if (typeof this.props.match.params.id !== 'undefined') {
+			this.method = 'patch';
+			getData(
+				'get',
+				`Children/${this.props.match.params.id}`,
+				(data) => {
+					this.setState({ ...data.data.data });
+				},
+				(error) => {
+					console.log(error);
+				},
+				JSON.stringify(this.state)
+			);
+		}
+	}
 	handleSubmit = () => {
 		getData(
-			'post',
-			'Children',
+			this.method,
+			this.method === 'patch' ? `Children/${this.props.match.params.id}` : 'Children',
+			// 'Children',
 			(data) => {
-				console.log(data);
+				this.props.history.push('/app/Children');
 			},
 			(error) => {
 				console.log(error);
 			},
 			JSON.stringify(this.state)
 		);
-		console.log('state', this.state);
 	};
 	handleChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 	handleSelect = (e) => {
-		console.log(e.target);
+		console.log(e.target.value);
 	};
 	render() {
 		return (
@@ -70,7 +92,12 @@ export default class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input type="select" name="gender" onChange={(e) => this.handleSelect(e)}>
+							<Input
+								type="select"
+								name="gender"
+								value={this.state.gender}
+								onChange={(e) => this.handleChange(e)}
+							>
 								<option>Female</option>
 								<option>male</option>
 							</Input>
@@ -99,6 +126,7 @@ export default class Add extends Component {
 							<Input
 								type="textarea"
 								name="notes"
+								value={this.state.notes}
 								onChange={(e) => {
 									this.handleChange(e);
 								}}
@@ -106,8 +134,11 @@ export default class Add extends Component {
 						</FormGroup>
 					</Col>
 				</Row>
-				<Button onClick={this.handleSubmit}>Submit</Button>
+				<Button color="success" onClick={this.handleSubmit}>
+					Submit
+				</Button>
 			</Form>
 		);
 	}
 }
+export default withRouter(Add);

@@ -1,67 +1,34 @@
 import React, { Component } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
-import Button from 'reactstrap/lib/Button';
 import withRouter from 'react-router/withRouter';
-import axios from 'axios';
-// import api from '../../components/api';
-import getData from '../../components/getData';
+import Table from '../../components/Table';
 class All extends Component {
-	state = { data: [] };
-	componentDidMount() {
-		getData(
-			'get',
-			'Children',
-			(data) => {
-				this.setState({ data: data.data });
-			},
-			(error) => {
-				console.log('dasdasdsad', error);
-			}
-		);
-	}
-	handleAdd = () => {
-		this.props.history.push('class/add');
-	};
 	render() {
-		const products = [ { id: 1, name: 'abcd', price: '12' }, { id: 2, name: 'da', price: '12' } ];
 		const columns = [
 			{
 				dataField: 'id',
 				text: 'Product ID'
 			},
 			{
-				dataField: 'classNAme',
+				dataField: 'className',
 				text: 'Class Name'
 			},
 			{
-				dataField: 'from',
+				dataField: 'fromAge',
 				text: 'From Age'
 			},
 			{
-				dataField: 'to',
+				dataField: 'toAge',
 				text: 'To Age'
 			},
 			{
-				dataField: 'Capacity',
+				dataField: 'capacity',
 				text: 'capacity'
 			}
 		];
 
 		return (
 			<div>
-				<Button color="primary" className="float-right" onClick={this.handleAdd}>
-					Add New +
-				</Button>
-				<br />
-				<BootstrapTable
-					selectRow={{ mode: 'checkbox' }}
-					striped
-					hover
-					condensed
-					keyField="id"
-					data={this.state.data}
-					columns={columns}
-				/>
+				<Table buttonEntity="class" columns={columns} entity="Class" addRoute={`class/add`} />
 			</div>
 		);
 	}

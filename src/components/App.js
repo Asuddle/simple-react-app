@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router';
 import { HashRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-
+import mockServer from '../server/server';
 /* eslint-disable */
 import ErrorPage from '../pages/error';
 /* eslint-enable */
@@ -29,6 +29,10 @@ const PrivateRoute = ({ dispatch, component, ...rest }) => {
 const CloseButton = ({ closeToast }) => <i onClick={closeToast} className="la la-close notifications-close" />;
 
 class App extends React.PureComponent {
+	componentDidMount() {
+		mockServer();
+	}
+
 	render() {
 		return (
 			<div>

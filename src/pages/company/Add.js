@@ -188,7 +188,9 @@ export default class Add extends Component {
 						</FormGroup>
 					</Col>
 				</Row>
-				<Button onClick={this.handleSubmit}>Submit</Button>
+				<Button color="success" onClick={this.handleSubmit}>
+					Submit
+				</Button>
 			</Form>
 		);
 	}

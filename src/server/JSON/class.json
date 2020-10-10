@@ -1,0 +1,15 @@
+{
+	"data": [
+		{
+			"id": 1,
+			"className": "string",
+			"fromAge": "string",
+			"toAge": "madasle",
+			"capacity": "122"
+		}
+	],
+	"meta": {
+		"total": 1
+	},
+	"links": {}
+}

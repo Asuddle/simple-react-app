@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 export default function getData(method = 'get', url, callback, errorcallback, data = {}) {
-	if (method === 'get') {
+	toast.configure();
+	if (method === 'get' || method === 'delete') {
 		axios({
-			method: 'get',
-			url: `http://kndlgs.com/api/${url}`,
+			method: method,
+			url: `api/${url}`,
+			// url: `http://kndlgs.com/api/${url}`,
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`
 			}
@@ -20,10 +22,10 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				}
 			});
 	} else if (method === 'post') {
-		console.log('dasdassd');
 		axios({
 			method: 'post',
-			url: `http://kndlgs.com/api/${url}`,
+			url: `api/${url}`,
+			// url: `http://kndlgs.com/api/${url}`,
 			data: data,
 			headers: {
 				'Content-Type': 'application/json-patch+json',
@@ -31,6 +33,29 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 			}
 		})
 			.then((res) => {
+				toast.success('Added Successfully');
+				if (callback !== null) {
+					callback(res);
+				}
+			})
+			.catch((error) => {
+				if (errorcallback !== null) {
+					errorcallback(error);
+				}
+			});
+	} else if (method === 'patch') {
+		axios({
+			method: method,
+			url: `api/${url}`,
+			// url: `http://kndlgs.com/api/${url}`,
+			data: data,
+			headers: {
+				'Content-Type': 'application/json-patch+json',
+				Authorization: `Bearer ${localStorage.getItem('authenticated')}`
+			}
+		})
+			.then((res) => {
+				toast.success('Added Successfully');
 				if (callback !== null) {
 					callback(res);
 				}

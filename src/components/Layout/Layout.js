@@ -110,18 +110,23 @@ class Layout extends React.Component {
 
 										<Route path={'/app/children'} component={Children} exact />
 										<Route path={'/app/children/add'} component={AddChildren} exact />
+										<Route path={'/app/children/:id/edit'} component={AddChildren} exact />
 
 										<Route path={'/app/family'} component={Family} exact />
 										<Route path={'/app/family/add'} component={AddFamily} exact />
+										<Route path={'/app/family/:id/edit'} component={AddFamily} exact />
 
 										<Route path={'/app/company'} component={Company} exact />
 										<Route path={'/app/company/add'} component={AddCompany} exact />
+										<Route path={'/app/company/:id/edit'} component={AddCompany} exact />
 
 										<Route path={'/app/kiosk'} component={Kiosk} exact />
 										<Route path={'/app/kiosk/add'} component={AddKiosk} exact />
+										<Route path={'/app/kiosk/:id/edit'} component={AddClass} exact />
 
 										<Route path={'/app/class'} component={Class} exact />
 										<Route path={'/app/class/add'} component={AddClass} exact />
+										<Route path={'/app/class/:id/edit'} component={AddClass} exact />
 									</Switch>
 								</CSSTransition>
 							</TransitionGroup>

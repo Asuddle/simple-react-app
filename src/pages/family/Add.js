@@ -3,18 +3,36 @@ import { Col, Row, Button, Form, FormGroup, Label, Input, CustomInput } from 're
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import getData from '../../components/getData';
-export default class Add extends Component {
-	state = {
-		firstName: '',
-		lastName: '',
-		relationship: '',
-		phone: '',
-		email: '',
-		reporting: '',
-		pin: ''
-	};
+import { withRouter } from 'react-router';
+class Add extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			firstName: '',
+			lastName: '',
+			relationship: '',
+			phone: '',
+			email: '',
+			reporting: '',
+			pin: ''
+		};
+		this.method = 'post';
+	}
 	componentDidMount() {
-		this.setState({ pin: Math.floor(1000 + Math.random() * 9000) });
+		if (typeof this.props.match.params.id !== 'undefined') {
+			this.method = 'patch';
+			getData(
+				'get',
+				`Family/${this.props.match.params.id}`,
+				(data) => {
+					console.log(data.data.data);
+					this.setState({ ...data.data.data });
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
+		} else this.setState({ pin: Math.floor(1000 + Math.random() * 9000) });
 	}
 	handleChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
@@ -24,8 +42,20 @@ export default class Add extends Component {
 	};
 	handleSubmit = () => {
 		console.log(this.state);
+		getData(
+			this.method,
+			this.method === 'patch' ? `Family/${this.props.match.params.id}` : 'Family',
+			(data) => {
+				this.props.history.push('/app/family');
+			},
+			(error) => {
+				console.log(error);
+			},
+			JSON.stringify(this.state)
+		);
 	};
 	render() {
+		console.log('state', this.state);
 		return (
 			<Form>
 				<Row form>
@@ -106,6 +136,7 @@ export default class Add extends Component {
 							<Input
 								type="email"
 								name="email"
+								value={this.state.email}
 								onChange={(e) => {
 									this.handleChange(e);
 								}}
@@ -143,64 +174,12 @@ export default class Add extends Component {
 						</FormGroup>
 					</Col>
 				</Row>
-				<Button onClick={this.handleSubmit}>Submit</Button>
+				<Button color="success" onClick={this.handleSubmit}>
+					Submit
+				</Button>
 			</Form>
 		);
 	}
 }
 
-// <div className="auth-page">
-// {
-/* <Widget
-					className="widget-auth my-auto"
-					title={
-						<h3 className="mt-0 mb-2" style={{ fontSize: 40 }}>
-							Login
-						</h3>
-					}
-				>
-					<form className="mt" onSubmit={this.doLogin}>
-						{this.props.errorMessage && (
-							<Alert className="alert-sm" color="danger">
-								{this.props.errorMessage}
-							</Alert>
-						)}
-						<div className="form-group">
-							<Label for="search-input1">Username</Label>
-							<input
-								className="form-control"
-								defaultValue={'admin'}
-								onChange={this.changeEmail}
-								required
-								name="email"
-								placeholder="Enter your username"
-							/>
-						</div>
-						<div className="form-group mb-2">
-							<Label for="search-input1">Password</Label>
-							<input
-								className="form-control"
-								defaultValue={'123123'}
-								onChange={this.changePassword}
-								type="password"
-								required
-								name="password"
-								placeholder="Enter your password"
-							/>
-						</div>
-						<FormGroup className="checkbox abc-checkbox mb-4 d-flex" check>
-							<Input id="checkbox1" type="checkbox" />
-							<Label for="checkbox1" check className={'mr-auto'}>
-								Remember me
-							</Label>
-							<a href="/">Forgot password?</a>
-						</FormGroup>
-						<Button type="submit" color="warning" className="auth-btn mb-3" size="sm">
-							{this.props.isFetching ? 'Loading...' : 'Login'}
-						</Button>
-						<Link to="register" className={'ml-1'}>
-							Sign Up here
-						</Link>
-					</form>
-				</Widget>
-			</div> */
+export default withRouter(Add);

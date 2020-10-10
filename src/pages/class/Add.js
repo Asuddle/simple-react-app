@@ -1,19 +1,39 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import getData from '../../components/getData';
-export default class Add extends Component {
-	state = {
-		className: '',
-		fromAge: '',
-		toAge: '',
-		capacity: ''
-	};
+class Add extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			className: '',
+			fromAge: '',
+			toAge: '',
+			capacity: ''
+		};
+		this.method = 'post';
+	}
+	componentDidMount() {
+		if (typeof this.props.match.params.id !== 'undefined') {
+			this.method = 'patch';
+			getData(
+				'get',
+				`Class/${this.props.match.params.id}`,
+				(data) => {
+					this.setState({ ...data.data.data });
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
+		}
+	}
 	handleSubmit = () => {
 		getData(
-			'post',
-			'Class',
+			this.method,
+			this.method === 'patch' ? `Class/${this.props.match.params.id}` : 'Class',
 			(data) => {
-				console.log(data);
+				this.props.history.push('/app/class');
 			},
 			(error) => {
 				console.log(error);
@@ -36,7 +56,7 @@ export default class Add extends Component {
 						<FormGroup>
 							<Input
 								type="text"
-								name="classsName"
+								name="className"
 								value={this.state.className}
 								onChange={(e) => {
 									this.handleChange(e);
@@ -94,8 +114,11 @@ export default class Add extends Component {
 						</FormGroup>
 					</Col>
 				</Row>
-				<Button onClick={this.handleSubmit}>Submit</Button>
+				<Button color="success" onClick={this.handleSubmit}>
+					Submit
+				</Button>
 			</Form>
 		);
 	}
 }
+export default withRouter(Add);
