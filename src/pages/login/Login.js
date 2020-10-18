@@ -50,7 +50,10 @@ class Login extends React.Component {
 		let header = {
 			'Content-Type': 'application/json-patch+json',
 			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Headers': '*'
+			'Access-Control-Allow-Headers': '*',
+			'Access-Control-Allow-Credentials': true,
+			'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT'
+			// 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
 		};
 
 		// localStorage.setItem('authenticated', 'asdasasasasdasdasdasd');

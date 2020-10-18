@@ -11,7 +11,9 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
 				'Content-Type': 'text/plain',
 				'Access-Control-Allow-Headers': '*',
-				'Access-Control-Allow-Origin': '*'
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Credentials': true,
+				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT'
 			}
 		})
 			.then((res) => {
@@ -35,6 +37,9 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				'Access-Control-Allow-Headers': '*',
 				'Access-Control-Allow-Origin': '*',
 				'Content-Type': 'application/json-patch+json',
+				'Access-Control-Allow-Credentials': true,
+				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`
 			}
 		})
@@ -60,7 +65,9 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				'Content-Type': 'application/json-patch+json',
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
 				'Access-Control-Allow-Headers': '*',
-				'Access-Control-Allow-Origin': '*'
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Credentials': true,
+				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT'
 			}
 		})
 			.then((res) => {
