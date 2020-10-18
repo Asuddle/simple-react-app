@@ -49,11 +49,12 @@ class Login extends React.Component {
 
 		let header = {
 			'Content-Type': 'application/json-patch+json',
-			'Access-Control-Allow-Origin': '*'
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Headers': '*'
 		};
 
 		// localStorage.setItem('authenticated', 'asdasasasasdasdasdasd');
-		toast.success('Authenticated');
+		// toast.success('Authenticated');
 		this.props.history.push('app/dashboard');
 		axios
 			.post('http://kndlgs.com/api/auth/login', JSON.stringify(this.state), { headers: header })

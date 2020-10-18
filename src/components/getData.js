@@ -10,7 +10,8 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
 				'Content-Type': 'text/plain',
-				'Access-Control-Allow-Headers': '*'
+				'Access-Control-Allow-Headers': '*',
+				'Access-Control-Allow-Origin': '*'
 			}
 		})
 			.then((res) => {
@@ -32,6 +33,7 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 			data: data,
 			headers: {
 				'Access-Control-Allow-Headers': '*',
+				'Access-Control-Allow-Origin': '*',
 				'Content-Type': 'application/json-patch+json',
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`
 			}
@@ -57,7 +59,8 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 			headers: {
 				'Content-Type': 'application/json-patch+json',
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
-				'Access-Control-Allow-Headers': '*'
+				'Access-Control-Allow-Headers': '*',
+				'Access-Control-Allow-Origin': '*'
 			}
 		})
 			.then((res) => {
