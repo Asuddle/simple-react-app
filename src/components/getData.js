@@ -9,7 +9,8 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 			url: `http://kndlgs.com/api/${url}`,
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
-				'Content-Type': 'text/plain'
+				'Content-Type': 'text/plain',
+				'Access-Control-Allow-Headers': '*'
 			}
 		})
 			.then((res) => {
@@ -30,6 +31,7 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 			url: `http://kndlgs.com/api/${url}`,
 			data: data,
 			headers: {
+				'Access-Control-Allow-Headers': '*',
 				'Content-Type': 'application/json-patch+json',
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`
 			}
@@ -54,7 +56,8 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 			data: data,
 			headers: {
 				'Content-Type': 'application/json-patch+json',
-				Authorization: `Bearer ${localStorage.getItem('authenticated')}`
+				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
+				'Access-Control-Allow-Headers': '*'
 			}
 		})
 			.then((res) => {

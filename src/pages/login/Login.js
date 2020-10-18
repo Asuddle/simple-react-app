@@ -48,8 +48,8 @@ class Login extends React.Component {
 		e.preventDefault();
 
 		let header = {
-			'Content-Type': 'application/json-patch+json'
-			// 'Access-Control-Allow-Origin': '*'
+			'Content-Type': 'application/json-patch+json',
+			'Access-Control-Allow-Origin': '*'
 		};
 
 		// localStorage.setItem('authenticated', 'asdasasasasdasdasdasd');
