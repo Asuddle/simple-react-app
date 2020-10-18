@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import getData from '../../components/getData';
@@ -25,7 +26,7 @@ class Add extends Component {
 				'get',
 				`Family/${this.props.match.params.id}`,
 				(data) => {
-					this.setState({ ...data.data.data });
+					this.setState({ ...data.data });
 				},
 				(error) => {
 					console.log(error);
@@ -52,37 +53,40 @@ class Add extends Component {
 			JSON.stringify(this.state)
 		);
 	};
+	handleInvalidSubmit = (e, values) => {
+		console.log('valeuss', values);
+	};
 	render() {
 		return (
-			<Form>
+			<AvForm onValidSubmit={this.handleSubmit} onInvalidSubmit={this.handleInvalidSubmit}>
 				<Row form>
 					<Col md={12}>
 						<h5>Full Name</h5>
 					</Col>
 					<Col md={6}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="text"
 								name="firstName"
+								label="First Name"
 								value={this.state.firstName}
 								onChange={(e) => {
 									this.handleChange(e);
 								}}
 							/>
-							<Label>First Name</Label>
 						</FormGroup>
 					</Col>
 					<Col md={6}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="text"
 								name="lastName"
+								label="Last Name"
 								value={this.state.lastName}
 								onChange={(e) => {
 									this.handleChange(e);
 								}}
 							/>
-							<Label>Last Name</Label>
 						</FormGroup>
 					</Col>
 				</Row>
@@ -104,10 +108,10 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input type="select" name="relationship" onChange={(e) => this.handleSelect(e)}>
+							<AvField type="select" name="relationship" onChange={(e) => this.handleSelect(e)}>
 								<option>Female</option>
 								<option>male</option>
-							</Input>
+							</AvField>
 						</FormGroup>
 					</Col>
 					<Col md={12}>
@@ -115,7 +119,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="date"
 								name="DOB"
 								value={this.state.DOB}
@@ -130,7 +134,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="email"
 								name="email"
 								value={this.state.email}
@@ -160,7 +164,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="text"
 								name="pin"
 								value={this.state.pin}
@@ -171,10 +175,8 @@ class Add extends Component {
 						</FormGroup>
 					</Col>
 				</Row>
-				<Button color="success" onClick={this.handleSubmit}>
-					Submit
-				</Button>
-			</Form>
+				<Button color="success">Submit</Button>
+			</AvForm>
 		);
 	}
 }

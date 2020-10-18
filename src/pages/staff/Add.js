@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import getData from '../../components/getData';
@@ -8,6 +9,8 @@ class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			userName: '',
+			password: '',
 			firstName: '',
 			lastName: '',
 			dob: '',
@@ -25,7 +28,7 @@ class Add extends Component {
 				'get',
 				`Staff/${this.props.match.params.id}`,
 				(data) => {
-					this.setState({ ...data.data.data });
+					this.setState({ ...data.data });
 				},
 				(error) => {
 					console.log(error);
@@ -52,29 +55,71 @@ class Add extends Component {
 			JSON.stringify(this.state)
 		);
 	};
+	handleInvalidSubmit = (e, values) => {
+		console.log('valeuss', values);
+	};
 	render() {
 		return (
-			<Form>
+			<AvForm onValidSubmit={this.handleSubmit} onInvalidSubmit={this.handleInvalidSubmit}>
+				<Row>
+					<Col md={6}>
+						<FormGroup>
+							<AvField
+								label="User Name"
+								type="text"
+								name="userName"
+								validate={{
+									required: { value: true, errorMessage: 'Please enter Username' }
+								}}
+								value={this.state.userName}
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+							{/* <Label>User Name</Label> */}
+						</FormGroup>
+					</Col>
+					<Col>
+						<FormGroup>
+							<AvField
+								label="Password"
+								type="password"
+								name="password"
+								validate={{
+									required: { value: true, errorMessage: 'Please enter Password' }
+								}}
+								value={this.state.password}
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
+					</Col>
+				</Row>
 				<Row form>
 					<Col md={12}>
 						<h5>Full Name</h5>
 					</Col>
 					<Col md={6}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="text"
+								label="First Name"
 								name="firstName"
 								value={this.state.firstName}
+								validate={{
+									required: { value: true, errorMessage: 'Please Enter First Name' }
+								}}
 								onChange={(e) => {
 									this.handleChange(e);
 								}}
 							/>
-							<Label>First Name</Label>
 						</FormGroup>
 					</Col>
 					<Col md={6}>
 						<FormGroup>
-							<Input
+							<AvField
+								label="Last Name"
 								type="text"
 								name="lastName"
 								value={this.state.lastName}
@@ -82,7 +127,6 @@ class Add extends Component {
 									this.handleChange(e);
 								}}
 							/>
-							<Label>Last Name</Label>
 						</FormGroup>
 					</Col>
 				</Row>
@@ -92,7 +136,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup className={'customInputWidth'}>
-							<Input
+							<AvField
 								type="date"
 								value={this.state.dob}
 								name="dob"
@@ -109,7 +153,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="select"
 								name="classRoom"
 								value={this.state.classRoom}
@@ -119,7 +163,7 @@ class Add extends Component {
 								{[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].map((item) => {
 									return <option value={item}>{item}</option>;
 								})}
-							</Input>
+							</AvField>
 						</FormGroup>
 					</Col>
 				</Row>
@@ -129,7 +173,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="select"
 								name="position"
 								value={this.state.position}
@@ -139,7 +183,7 @@ class Add extends Component {
 								{[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].map((item) => {
 									return <option value={item}>{item}</option>;
 								})}
-							</Input>
+							</AvField>
 						</FormGroup>
 					</Col>
 				</Row>
@@ -149,7 +193,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="text"
 								name="pin"
 								value={this.state.pin}
@@ -166,7 +210,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="textarea"
 								name="notes"
 								value={this.state.notes}
@@ -177,12 +221,10 @@ class Add extends Component {
 						</FormGroup>
 					</Col>
 				</Row>
-				<Button color="success" onClick={this.handleSubmit}>
-					Submit
-				</Button>
-			</Form>
+				<Button color="success">Submit</Button>
+			</AvForm>
 		);
 	}
 }
-
+// onClick={this.handleSubmit}
 export default withRouter(Add);

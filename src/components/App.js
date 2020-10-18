@@ -30,7 +30,7 @@ const CloseButton = ({ closeToast }) => <i onClick={closeToast} className="la la
 
 class App extends React.PureComponent {
 	componentDidMount() {
-		mockServer();
+		// mockServer();
 	}
 
 	render() {

@@ -6,7 +6,7 @@ class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			className: '',
+			name: '',
 			fromAge: '',
 			toAge: '',
 			capacity: ''
@@ -20,7 +20,8 @@ class Add extends Component {
 				'get',
 				`Class/${this.props.match.params.id}`,
 				(data) => {
-					this.setState({ ...data.data.data });
+					console.log('data', data);
+					this.setState({ ...data.data });
 				},
 				(error) => {
 					console.log(error);
@@ -29,6 +30,8 @@ class Add extends Component {
 		}
 	}
 	handleSubmit = () => {
+		let data = { centerId: 0, description: 'string', name: 'dsadas' };
+		console.log('data', data);
 		getData(
 			this.method,
 			this.method === 'patch' ? `Class/${this.props.match.params.id}` : 'Class',
@@ -38,7 +41,7 @@ class Add extends Component {
 			(error) => {
 				console.log(error);
 			},
-			JSON.stringify(this.state)
+			JSON.stringify(data)
 		);
 	};
 	handleChange = (e) => {
@@ -55,8 +58,8 @@ class Add extends Component {
 						<FormGroup>
 							<Input
 								type="text"
-								name="className"
-								value={this.state.className}
+								name="name"
+								value={this.state.name}
 								onChange={(e) => {
 									this.handleChange(e);
 								}}

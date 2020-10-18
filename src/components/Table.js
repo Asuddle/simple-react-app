@@ -21,7 +21,8 @@ class Table extends Component {
 			'get',
 			this.props.entity,
 			(data) => {
-				this.setState({ data: data.data.data });
+				console.log('in Table', data.data);
+				this.setState({ data: data.data });
 			},
 			(error) => {
 				console.log('error', error);

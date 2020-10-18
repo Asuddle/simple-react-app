@@ -5,13 +5,15 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 	if (method === 'get' || method === 'delete') {
 		axios({
 			method: method,
-			url: `api/${url}`,
-			// url: `http://kndlgs.com/api/${url}`,
+			// url: `api/${url}`,
+			url: `http://kndlgs.com/api/${url}`,
 			headers: {
-				Authorization: `Bearer ${localStorage.getItem('authenticated')}`
+				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
+				'Content-Type': 'text/plain'
 			}
 		})
 			.then((res) => {
+				console.log('checking here', res);
 				if (callback !== null) {
 					callback(res);
 				}
@@ -24,8 +26,8 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 	} else if (method === 'post') {
 		axios({
 			method: 'post',
-			url: `api/${url}`,
-			// url: `http://kndlgs.com/api/${url}`,
+			// url: `api/${url}`,
+			url: `http://kndlgs.com/api/${url}`,
 			data: data,
 			headers: {
 				'Content-Type': 'application/json-patch+json',
@@ -46,7 +48,8 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 	} else if (method === 'patch') {
 		axios({
 			method: method,
-			url: `api/${url}`,
+			url: `http://kndlgs.com/api/${url}`,
+			// http://kndlgs.com/api/Children
 			// url: `http://kndlgs.com/api/${url}`,
 			data: data,
 			headers: {

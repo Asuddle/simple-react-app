@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import getData from '../../components/getData';
 class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			userName: '',
+			password: '',
 			lastName: '',
 			firstName: '',
 			gender: '',
-			DOB: '',
+			dob: '',
 			notes: ''
 		};
 		this.method = 'post';
@@ -22,7 +25,7 @@ class Add extends Component {
 				'get',
 				`Children/${this.props.match.params.id}`,
 				(data) => {
-					this.setState({ ...data.data.data });
+					this.setState({ ...data.data });
 				},
 				(error) => {
 					console.log(error);
@@ -51,16 +54,50 @@ class Add extends Component {
 	handleSelect = (e) => {
 		console.log(e.target.value);
 	};
+	handleInvalidSubmit = (e, values) => {
+		console.log('valeuss', values);
+	};
 	render() {
 		return (
-			<Form>
+			<AvForm onValidSubmit={this.handleSubmit} onInvalidSubmit={this.handleInvalidSubmit}>
+				<Row>
+					<Col md={6}>
+						<FormGroup>
+							<AvField
+								label="User Name"
+								type="text"
+								name="userName"
+								value={this.state.userName}
+								id="exampleEmail"
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
+					</Col>
+					<Col md={6}>
+						<FormGroup>
+							<AvField
+								label="Password"
+								type="password"
+								name="password"
+								value={this.state.password}
+								id="exampleEmail"
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
+					</Col>
+				</Row>
 				<Row form>
 					<Col md={12}>
 						<h5>Full Name</h5>
 					</Col>
 					<Col md={6}>
 						<FormGroup>
-							<Input
+							<AvField
+								label="First Name"
 								type="text"
 								name="firstName"
 								value={this.state.firstName}
@@ -69,12 +106,12 @@ class Add extends Component {
 									this.handleChange(e);
 								}}
 							/>
-							<Label>First Name</Label>
 						</FormGroup>
 					</Col>
 					<Col md={6}>
 						<FormGroup>
-							<Input
+							<AvField
+								label="Last Name"
 								type="text"
 								name="lastName"
 								value={this.state.lastName}
@@ -82,7 +119,6 @@ class Add extends Component {
 									this.handleChange(e);
 								}}
 							/>
-							<Label>Last Name</Label>
 						</FormGroup>
 					</Col>
 				</Row>
@@ -92,7 +128,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="select"
 								name="gender"
 								value={this.state.gender}
@@ -101,7 +137,7 @@ class Add extends Component {
 								<option value="">Select</option>
 								<option value="female">Female</option>
 								<option value="male">male</option>
-							</Input>
+							</AvField>
 						</FormGroup>
 					</Col>
 					<Col md={12}>
@@ -109,10 +145,10 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="date"
-								name="DOB"
-								value={this.state.DOB}
+								name="dob"
+								value={this.state.dob}
 								onChange={(e) => this.handleChange(e)}
 							/>
 						</FormGroup>
@@ -124,7 +160,7 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<Input
+							<AvField
 								type="textarea"
 								name="notes"
 								value={this.state.notes}
@@ -135,10 +171,8 @@ class Add extends Component {
 						</FormGroup>
 					</Col>
 				</Row>
-				<Button color="success" onClick={this.handleSubmit}>
-					Submit
-				</Button>
-			</Form>
+				<Button color="success">Submit</Button>
+			</AvForm>
 		);
 	}
 }
