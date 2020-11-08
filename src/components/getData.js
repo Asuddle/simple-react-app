@@ -13,7 +13,9 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				'Access-Control-Allow-Headers': '*',
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Credentials': true,
-				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT'
+				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+				'Content-Type': 'application/x-www-form-urlencoded',
+				Accept: 'application/json'
 			}
 		})
 			.then((res) => {
@@ -39,7 +41,7 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				'Content-Type': 'application/json-patch+json',
 				'Access-Control-Allow-Credentials': true,
 				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-
+				Accept: 'application/json',
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`
 			}
 		})
@@ -67,7 +69,8 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				'Access-Control-Allow-Headers': '*',
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Credentials': true,
-				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT'
+				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+				Accept: 'application/json'
 			}
 		})
 			.then((res) => {

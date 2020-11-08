@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-// import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './serviceWorker';
 
 import App from './components/App';
 import reducers from './reducers';
@@ -16,5 +16,3 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById('root')
 );
-
-// serviceWorker.unregister();

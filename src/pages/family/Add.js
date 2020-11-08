@@ -34,6 +34,9 @@ class Add extends Component {
 			);
 		} else this.setState({ pin: Math.floor(1000 + Math.random() * 9000) });
 	}
+	handleSelect = (e) => {
+		console.log(e.target);
+	};
 	handleChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};

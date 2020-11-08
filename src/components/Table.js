@@ -104,7 +104,12 @@ class Table extends Component {
 						keyField="id"
 						data={this.state.data}
 						columns={this.state.columns}
-						defaultSorted="id"
+						defaultSorted={[
+							{
+								dataField: 'id', // if dataField is not match to any column you defined, it will be ignored.
+								order: 'desc' // desc or asc
+							}
+						]}
 					/>
 				</div>
 				<Modal isOpen={this.state.modal} toggle={this.handleModal}>

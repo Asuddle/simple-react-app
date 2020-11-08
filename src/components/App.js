@@ -19,10 +19,7 @@ const PrivateRoute = ({ dispatch, component, ...rest }) => {
 		dispatch(logoutUser());
 		return <Redirect to="/login" />;
 	} else {
-		return (
-			// eslint-disable-line
-			<Route {...rest} render={(props) => React.createElement(component, props)} />
-		);
+		return <Route {...rest} render={(props) => React.createElement(component, props)} />;
 	}
 };
 
