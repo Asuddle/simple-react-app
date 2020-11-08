@@ -161,7 +161,11 @@ class Add extends Component {
 							>
 								<option value="">Select</option>
 								{[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].map((item) => {
-									return <option value={item}>{item}</option>;
+									return (
+										<option key={item} value={item}>
+											{item}
+										</option>
+									);
 								})}
 							</AvField>
 						</FormGroup>
@@ -181,7 +185,11 @@ class Add extends Component {
 							>
 								<option value="">Select</option>
 								{[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].map((item) => {
-									return <option value={item}>{item}</option>;
+									return (
+										<option key={item} value={item}>
+											{item}
+										</option>
+									);
 								})}
 							</AvField>
 						</FormGroup>

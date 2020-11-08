@@ -49,7 +49,10 @@ class Add extends Component {
 		}
 	}
 	handleSelect = (e) => {
-		console.log(e.target);
+		let address = this.state.address;
+		console.log(e.target.value);
+		address['country'] = e.target.value;
+		this.setState({ address: address });
 	};
 	handleInvalidSubmit = (e, values) => {
 		console.log('valeuss', values);
@@ -58,7 +61,7 @@ class Add extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 	handleSubmit = () => {
-		console.log(this.state);
+		console.log('here', this.state);
 		getData(
 			this.method,
 			this.method === 'patch' ? `Company/${this.props.match.params.id}` : 'Company',
@@ -173,7 +176,11 @@ class Add extends Component {
 							>
 								<option value="">Select Country</option>
 								{country.map((item) => {
-									return <option value={item.value}>{item.text}</option>;
+									return (
+										<option key={item.text} value={item.value}>
+											{item.text}
+										</option>
+									);
 								})}
 							</AvField>
 						</FormGroup>
@@ -244,6 +251,10 @@ class Add extends Component {
 								type="text"
 								value={this.state.email}
 								name="email"
+								validate={{
+									required: { value: true, errorMessage: 'Please enter Username' },
+									email: { value: true, errorMessage: 'Please enter valid Email' }
+								}}
 								onChange={(e) => {
 									this.handleChange(e);
 								}}
@@ -257,7 +268,11 @@ class Add extends Component {
 					</Col>
 					<Col md={12}>
 						<FormGroup>
-							<AvField type="select" name="gender" onChange={(e) => this.handleSelect(e)}>
+							<AvField
+								type="select"
+								name="gender"
+								onChange={(e) => this.setState({ centerType: e.target.value })}
+							>
 								<option>Female</option>
 								<option>male</option>
 							</AvField>
