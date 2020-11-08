@@ -34,11 +34,11 @@ class Add extends Component {
 			);
 		}
 	}
+
 	handleSubmit = () => {
 		getData(
 			this.method,
 			this.method === 'patch' ? `Children/${this.props.match.params.id}` : 'Children',
-			// 'Children',
 			(data) => {
 				this.props.history.push('/app/Children');
 			},
