@@ -8,7 +8,6 @@ import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { toast } from 'react-toastify';
 import { loginUser } from '../../actions/user';
 import axios from 'axios';
-
 class Login extends React.Component {
 	static propTypes = {
 		dispatch: PropTypes.func.isRequired
@@ -133,10 +132,13 @@ class Login extends React.Component {
 											/>
 										</FormGroup>
 									</Col>
-									<Button>Submit</Button>
-									<br />
-									<br />
+									<Button type="submit">Submit</Button>
 								</AvForm>
+								<div className="float-right">
+									<Link to="/register">Register</Link>
+								</div>
+								<br />
+								<br />
 							</Container>
 						</Card>
 					</Col>
