@@ -9,8 +9,8 @@ class All extends Component {
 				text: 'Product ID'
 			},
 			{
-				dataField: 'className',
-				text: 'Class Name'
+				dataField: 'name',
+				text: 'Name'
 			},
 			{
 				dataField: 'fromAge',

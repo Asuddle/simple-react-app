@@ -3,8 +3,9 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import Button from 'reactstrap/lib/Button';
 import withRouter from 'react-router/withRouter';
 import getData from './getData';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-
+import { Card, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import CardHeader from 'reactstrap/lib/CardHeader';
+import CardBody from 'reactstrap/lib/CardBody';
 class Table extends Component {
 	constructor(props) {
 		super(props);
@@ -83,34 +84,38 @@ class Table extends Component {
 	render() {
 		return (
 			<div>
-				<Button
-					color="success"
-					// className="float-right"
-					onClick={() => {
-						this.props.history.push(this.props.addRoute);
-					}}
-				>
-					Add New +
-				</Button>
-				<br />
-				<br />
 				<div className="custom-table-res">
-					<BootstrapTable
-						selectRow={{ mode: 'checkbox' }}
-						striped
-						hover
-						responsive
-						condensed
-						keyField="id"
-						data={this.state.data}
-						columns={this.state.columns}
-						defaultSorted={[
-							{
-								dataField: 'id', // if dataField is not match to any column you defined, it will be ignored.
-								order: 'desc' // desc or asc
-							}
-						]}
-					/>
+					<Card>
+						<CardHeader>
+							<Button
+								color="success"
+								// className="float-right"
+								onClick={() => {
+									this.props.history.push(this.props.addRoute);
+								}}
+							>
+								Add New +
+							</Button>
+						</CardHeader>
+						<CardBody>
+							<BootstrapTable
+								selectRow={{ mode: 'checkbox' }}
+								striped
+								hover
+								responsive
+								condensed
+								keyField="id"
+								data={this.state.data}
+								columns={this.state.columns}
+								defaultSorted={[
+									{
+										dataField: 'id', // if dataField is not match to any column you defined, it will be ignored.
+										order: 'desc' // desc or asc
+									}
+								]}
+							/>
+						</CardBody>
+					</Card>
 				</div>
 				<Modal isOpen={this.state.modal} toggle={this.handleModal}>
 					<ModalHeader toggle={this.handleModal}>Delete</ModalHeader>

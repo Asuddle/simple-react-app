@@ -9,13 +9,17 @@ class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			firstName: '',
+			userName: '',
+			password: '',
 			lastName: '',
-			relationship: '',
-			phone: '',
+			firstName: '',
+			dob: '',
+			occupation: '',
+			isReporting: false,
+			phoneNumber: '',
 			email: '',
-			reporting: '',
-			pin: ''
+			pin: '',
+			centerId: 5
 		};
 		this.method = 'post';
 	}
@@ -26,7 +30,19 @@ class Add extends Component {
 				'get',
 				`Family/${this.props.match.params.id}`,
 				(data) => {
-					this.setState({ ...data.data });
+					let dt = data.data;
+					let form = {
+						userName: dt.user.userName,
+						password: '',
+						lastName: dt.user.lastName,
+						firstName: dt.user.firstName,
+						phoneNumber: dt.user.phoneNumber,
+						dob: dt.user.dob.split('T')[0],
+						email: dt.user.email,
+						pin: dt.pin,
+						designation: dt.designation
+					};
+					this.setState({ ...form });
 				},
 				(error) => {
 					console.log(error);
@@ -60,11 +76,35 @@ class Add extends Component {
 		console.log('valeuss', values);
 	};
 	render() {
+		console.log(this.state.isReporting);
 		return (
 			<AvForm onValidSubmit={this.handleSubmit} onInvalidSubmit={this.handleInvalidSubmit}>
 				<Row form>
-					<Col md={12}>
-						<h5>Full Name</h5>
+					<Col md={6}>
+						<FormGroup>
+							<AvField
+								type="text"
+								name="UserName"
+								label="User Name"
+								value={this.state.userName}
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
+					</Col>
+					<Col md={6}>
+						<FormGroup>
+							<AvField
+								type="text"
+								name="password"
+								label="Password"
+								value={this.state.password}
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
 					</Col>
 					<Col md={6}>
 						<FormGroup>
@@ -92,51 +132,39 @@ class Add extends Component {
 							/>
 						</FormGroup>
 					</Col>
-				</Row>
-				<Row form>
-					<Col md={12}>
-						<h5>Phone</h5>
-					</Col>
-					<Col md={12}>
+					<Col md={6}>
 						<FormGroup className={'customInputWidth'}>
+							<Label>Phone Number</Label>
 							<PhoneInput
 								country={'us'}
-								value={this.state.phone}
-								onChange={(phone) => this.setState({ phone })}
+								value={this.state.phoneNumber}
+								onChange={(phoneNumber) => this.setState({ phoneNumber })}
 							/>
 						</FormGroup>
 					</Col>
-					<Col md={12}>
-						<h5>Relationship</h5>
-					</Col>
-					<Col md={12}>
+					<Col md={6}>
 						<FormGroup>
+							<Label>Relationship</Label>
 							<AvField type="select" name="relationship" onChange={(e) => this.handleSelect(e)}>
 								<option>Female</option>
 								<option>male</option>
 							</AvField>
 						</FormGroup>
 					</Col>
-					<Col md={12}>
-						<h5>Date Of Birth</h5>
-					</Col>
-					<Col md={12}>
+					<Col md={6}>
 						<FormGroup>
+							<Label>Date Of Birth</Label>
 							<AvField
 								type="date"
-								name="DOB"
-								value={this.state.DOB}
+								name="dob"
+								value={this.state.dob}
 								onChange={(e) => this.handleChange(e)}
 							/>
 						</FormGroup>
 					</Col>
-				</Row>
-				<Row form>
-					<Col md={12}>
-						<h5>Email</h5>
-					</Col>
-					<Col md={12}>
+					<Col md={6}>
 						<FormGroup>
+							<Label>Email</Label>
 							<AvField
 								type="email"
 								name="email"
@@ -147,25 +175,25 @@ class Add extends Component {
 							/>
 						</FormGroup>
 					</Col>
-				</Row>
 
-				<Row form>
-					<Col md={12}>
-						<h5>Reporting Required</h5>
-					</Col>
 					<Col md={6}>
-						<CustomInput type="radio" id="1" name="customRadio" label="yes" />
+						<Label>Reporting Required</Label>
+						<CustomInput
+							type="switch"
+							bsSize="lg"
+							id="isReporting"
+							value={this.state.isReporting}
+							name="isReporting"
+							onChange={(e) => {
+								this.setState({ isReporting: !this.state.isReporting });
+							}}
+						/>
+						<br />
+						{/* <CustomInput type="radio" id="1" name="customRadio" label="yes" /> */}
 					</Col>
+
 					<Col md={6}>
-						<CustomInput type="radio" id="0" name="customRadio" label="no" />
-					</Col>
-				</Row>
-				<br />
-				<Row form>
-					<Col md={12}>
-						<h5>Auto Generated Pin (4 digit)</h5>
-					</Col>
-					<Col md={12}>
+						<Label>Auto Generated Pin (4 digit)</Label>
 						<FormGroup>
 							<AvField
 								type="text"

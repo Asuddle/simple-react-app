@@ -5,7 +5,6 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 	if (method === 'get' || method === 'delete') {
 		axios({
 			method: method,
-			// url: `api/${url}`,
 			url: `http://kndlgs.com/api/${url}`,
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
@@ -60,8 +59,6 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 		axios({
 			method: method,
 			url: `http://kndlgs.com/api/${url}`,
-			// http://kndlgs.com/api/Children
-			// url: `http://kndlgs.com/api/${url}`,
 			data: data,
 			headers: {
 				'Content-Type': 'application/json-patch+json',

@@ -9,7 +9,8 @@ class Add extends Component {
 			name: '',
 			fromAge: '',
 			toAge: '',
-			capacity: ''
+			capacity: '',
+			description: ''
 		};
 		this.method = 'post';
 	}
@@ -66,8 +67,6 @@ class Add extends Component {
 							/>
 						</FormGroup>
 					</Col>
-				</Row>
-				<Row form>
 					<Col md={12}>
 						<h5>From Age</h5>
 					</Col>
@@ -98,8 +97,6 @@ class Add extends Component {
 							/>
 						</FormGroup>
 					</Col>
-				</Row>
-				<Row form>
 					<Col md={12}>
 						<h5>Capacity</h5>
 					</Col>
@@ -109,6 +106,21 @@ class Add extends Component {
 								type="text"
 								name="capacity"
 								value={this.state.capacity}
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
+					</Col>
+					<Col md={12}>
+						<h5>Description</h5>
+					</Col>
+					<Col md={12}>
+						<FormGroup>
+							<Input
+								type="textarea"
+								name="description"
+								value={this.state.description}
 								onChange={(e) => {
 									this.handleChange(e);
 								}}

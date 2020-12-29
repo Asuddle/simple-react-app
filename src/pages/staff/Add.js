@@ -11,13 +11,15 @@ class Add extends Component {
 		this.state = {
 			userName: '',
 			password: '',
-			firstName: '',
 			lastName: '',
+			firstName: '',
+			phoneNumber: '',
 			dob: '',
-			classRoom: '',
-			position: '',
-			notes: '',
-			pin: ''
+			email: '',
+			pin: '',
+			designation: '',
+			note: '',
+			classId: 0
 		};
 		this.method = 'post';
 	}
@@ -28,7 +30,21 @@ class Add extends Component {
 				'get',
 				`Staff/${this.props.match.params.id}`,
 				(data) => {
-					this.setState({ ...data.data });
+					let dt = data.data;
+					let form = {
+						userName: dt.user.userName,
+						password: '',
+						lastName: dt.user.lastName,
+						firstName: dt.user.firstName,
+						phoneNumber: dt.user.phoneNumber,
+						dob: dt.user.dob.split('T')[0],
+						email: dt.user.email,
+						pin: dt.pin,
+						designation: dt.designation,
+						classId: dt.classId,
+						note: dt.note
+					};
+					this.setState({ ...form });
 				},
 				(error) => {
 					console.log(error);
@@ -95,11 +111,6 @@ class Add extends Component {
 							/>
 						</FormGroup>
 					</Col>
-				</Row>
-				<Row form>
-					<Col md={12}>
-						<h5>Full Name</h5>
-					</Col>
 					<Col md={6}>
 						<FormGroup>
 							<AvField
@@ -129,15 +140,24 @@ class Add extends Component {
 							/>
 						</FormGroup>
 					</Col>
-				</Row>
-				<Row form>
-					<Col md={12}>
-						<h5>Date Of Birth</h5>
+					<Col md={6}>
+						<FormGroup>
+							<AvField
+								label="Email"
+								type="email"
+								name="email"
+								value={this.state.email}
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
 					</Col>
-					<Col md={12}>
+					<Col md={6}>
 						<FormGroup className={'customInputWidth'}>
 							<AvField
 								type="date"
+								label="Date of Birth"
 								value={this.state.dob}
 								name="dob"
 								onChange={(e) => {
@@ -146,9 +166,79 @@ class Add extends Component {
 							/>
 						</FormGroup>
 					</Col>
-				</Row>
-				<Row form>
+					<Col md={6}>
+						<FormGroup>
+							<AvField
+								label="Designation"
+								type="text"
+								name="designation"
+								value={this.state.designation}
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
+					</Col>
+
+					<Col md={6}>
+						<FormGroup className={'customInputWidth'}>
+							<Label>Phone Number</Label>
+							<PhoneInput
+								country={'us'}
+								value={this.state.phoneNumber}
+								onChange={(phoneNumber) => this.setState({ phoneNumber })}
+							/>
+						</FormGroup>
+					</Col>
+
+					<Col md={6}>
+						<AvField
+							type="text"
+							name="pin"
+							label="Auto Generated Pin (4 digit)"
+							value={this.state.pin}
+							onChange={(e) => {
+								this.handleChange(e);
+							}}
+						/>
+					</Col>
+					<Col md={6}>
+						<AvField
+							type="number"
+							name="classId"
+							label="Class"
+							value={this.state.classId}
+							onChange={(e) => {
+								this.handleChange(e);
+							}}
+						/>
+					</Col>
 					<Col md={12}>
+						<h5>Notes</h5>
+					</Col>
+					<Col md={12}>
+						<FormGroup>
+							<AvField
+								type="textarea"
+								name="note"
+								value={this.state.note}
+								onChange={(e) => {
+									this.handleChange(e);
+								}}
+							/>
+						</FormGroup>
+					</Col>
+				</Row>
+				<Button color="success">Submit</Button>
+			</AvForm>
+		);
+	}
+}
+// onClick={this.handleSubmit}
+export default withRouter(Add);
+
+{
+	/* <Col md={12}>
 						<h5>Class Room Dropdown </h5>
 					</Col>
 					<Col md={12}>
@@ -170,8 +260,6 @@ class Add extends Component {
 							</AvField>
 						</FormGroup>
 					</Col>
-				</Row>
-				<Row form>
 					<Col md={12}>
 						<h5>Position Dropdown </h5>
 					</Col>
@@ -193,46 +281,5 @@ class Add extends Component {
 								})}
 							</AvField>
 						</FormGroup>
-					</Col>
-				</Row>
-				<Row form>
-					<Col md={12}>
-						<h5>Auto Generated Pin (4 digit)</h5>
-					</Col>
-					<Col md={12}>
-						<FormGroup>
-							<AvField
-								type="text"
-								name="pin"
-								value={this.state.pin}
-								onChange={(e) => {
-									this.handleChange(e);
-								}}
-							/>
-						</FormGroup>
-					</Col>
-				</Row>
-				<Row form>
-					<Col md={12}>
-						<h5>Notes</h5>
-					</Col>
-					<Col md={12}>
-						<FormGroup>
-							<AvField
-								type="textarea"
-								name="notes"
-								value={this.state.notes}
-								onChange={(e) => {
-									this.handleChange(e);
-								}}
-							/>
-						</FormGroup>
-					</Col>
-				</Row>
-				<Button color="success">Submit</Button>
-			</AvForm>
-		);
-	}
+					</Col> */
 }
-// onClick={this.handleSubmit}
-export default withRouter(Add);
