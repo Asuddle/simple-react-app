@@ -7,19 +7,39 @@ class All extends Component {
 		const columns = [
 			{
 				dataField: 'id',
-				text: 'Product ID'
+				text: 'Id'
 			},
 			{
 				dataField: 'email',
-				text: 'Email'
+				text: 'Email',
+				formatter: (cell, row, rowIndex, formatExtraData) => {
+					return <p>{row.user.email}</p>;
+				}
 			},
 			{
 				dataField: 'phone',
-				text: 'Phone'
+				text: 'Phone',
+				formatter: (cell, row, rowIndex, formatExtraData) => {
+					return <p>{row.user.phoneNumber}</p>;
+				}
+			},
+			{
+				dataField: 'name',
+				text: 'Name',
+				formatter: (cell, row, rowIndex, formatExtraData) => {
+					return (
+						<p>
+							{row.user.firstName} {row.user.lastName}
+						</p>
+					);
+				}
 			},
 			{
 				dataField: 'Date Of Birth',
-				text: 'dob'
+				text: 'dob',
+				formatter: (cell, row, rowIndex, formatExtraData) => {
+					return <p>{row.user.dob}</p>;
+				}
 			}
 		];
 

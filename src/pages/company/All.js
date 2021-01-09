@@ -5,22 +5,15 @@ export default class All extends Component {
 		const columns = [
 			{
 				dataField: 'id',
-				text: 'Product ID'
-			},
-			{
-				dataField: 'companyName',
-				text: 'Company Name'
+				text: 'Id'
 			},
 			{
 				dataField: 'name',
-				text: 'Name',
-				formatter: (cell, row, rowIndex, formatExtraData) => {
-					return (
-						<span>
-							{row.firstName} {row.lastName}
-						</span>
-					);
-				}
+				text: 'Name'
+			},
+			{
+				dataField: 'phone',
+				text: 'Phone'
 			},
 			// {
 			// 	dataField: 'address',
@@ -34,7 +27,7 @@ export default class All extends Component {
 
 		return (
 			<div>
-				<Table buttonEntity="company" columns={columns} entity="Company" addRoute={`company/add`} />
+				<Table buttonEntity="company" columns={columns} entity="Center" addRoute={`company/add`} />
 			</div>
 		);
 	}

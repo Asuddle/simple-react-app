@@ -5,19 +5,24 @@ export default class All extends Component {
 		const columns = [
 			{
 				dataField: 'id',
-				text: 'Product ID'
+				text: 'Id'
 			},
 			{
-				dataField: 'dob',
-				text: 'Date of Birth'
+				dataField: 'class.name',
+				text: 'Class'
 			},
 			{
-				dataField: 'name',
+				dataField: 'designation',
+				text: 'Designation'
+			},
+
+			{
+				dataField: 'user',
 				text: 'Name',
 				formatter: (cell, row, rowIndex, formatExtraData) => {
 					return (
 						<span>
-							{row.firstName} {row.lastName}
+							{cell.firstName} {cell.lastName}
 						</span>
 					);
 				}

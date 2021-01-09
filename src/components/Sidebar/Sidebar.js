@@ -16,12 +16,11 @@ import lightUI from '../../images/ui-elements.svg';
 import darkUI from '../../images/ui-elements-dark.svg';
 import lightTypography from '../../images/Typography.svg';
 import darkTypography from '../../images/Typography-dark.svg';
-import logo from '../../images/logo.svg';
 import settingsIcon from '../../images/settings.svg';
 import logoutIcon from '../../images/logout.svg';
 import accountIcon from '../../images/account.svg';
-import stockIcon from '../../images/stocks.svg';
-import orderIcon from '../../images/orders.svg';
+// import stockIcon from '../../images/stocks.svg';
+// import orderIcon from '../../images/orders.svg';
 
 class Sidebar extends React.Component {
 	static propTypes = {
@@ -122,32 +121,6 @@ class Sidebar extends React.Component {
 							link="/app/company"
 							index="app"
 							exact={false}
-							// 	childrenLinks={[
-							// 		{
-							// 			header: 'Children',
-							// 			link: '/app/children'
-							// 		},
-							// 		{
-							// 			header: 'Family',
-							// 			link: '/app/family'
-							// 		},
-							// 		{
-							// 			header: 'Company',
-							// 			link: '/app/company'
-							// 		},
-							// 		{
-							// 			header: 'Class',
-							// 			link: '/app/class'
-							// 		},
-							// 		{
-							// 			header: 'Staff',
-							// 			link: '/app/staff'
-							// 		},
-							// 		{
-							// 			header: 'Kiosk',
-							// 			link: '/app/kiosk'
-							// 		}
-							// 	]}
 						>
 							{window.location.href.includes('ui') ? (
 								<img src={darkUI} alt="lightDashboard" width={'24px'} height={'24px'} />
@@ -175,16 +148,6 @@ class Sidebar extends React.Component {
 						>
 							<img src={accountIcon} alt="lightDashboard" width={'24px'} height={'24px'} />
 						</LinksGroup>
-						{/* <LinksGroup
-							onActiveSidebarItemChange={(activeItem) =>
-								this.props.dispatch(changeActiveSidebarItem(activeItem))}
-							header="Kiosk"
-							isHeader
-							link="/app/kiosk"
-							index="app"
-						>
-							<img src={orderIcon} alt="lightDashboard" width={'24px'} height={'24px'} />
-						</LinksGroup> */}
 					</ul>
 					<hr />
 					<ul className={s.downNav}>

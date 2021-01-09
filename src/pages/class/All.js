@@ -6,11 +6,11 @@ class All extends Component {
 		const columns = [
 			{
 				dataField: 'id',
-				text: 'Product ID'
+				text: 'Id'
 			},
 			{
-				dataField: 'className',
-				text: 'Class Name'
+				dataField: 'name',
+				text: 'Name'
 			},
 			{
 				dataField: 'fromAge',

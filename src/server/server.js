@@ -54,7 +54,7 @@ export default function() {
 				};
 			});
 			this.post('/Children', (schema, request) => post(children, request));
-			this.patch('/Children/:id', (schema, request) => update(children, request));
+			this.put('/Children/:id', (schema, request) => update(children, request));
 			this.delete('/Children/:id', (schema, request) => remove(children, request));
 
 			this.get('/Class', () => ({
@@ -68,7 +68,7 @@ export default function() {
 				};
 			});
 			this.post('/Class', (schema, request) => post(classes, request));
-			this.patch('/Class/:id', (schema, request) => update(classes, request));
+			this.put('/Class/:id', (schema, request) => update(classes, request));
 			this.delete('/Class/:id', (schema, request) => remove(classes, request));
 
 			this.get('/Family', () => ({
@@ -82,7 +82,7 @@ export default function() {
 				};
 			});
 			this.post('/Family', (schema, request) => post(family, request));
-			this.patch('/Family/:id', (schema, request) => update(family, request));
+			this.put('/Family/:id', (schema, request) => update(family, request));
 			this.delete('/Family/:id', (schema, request) => remove(family, request));
 
 			this.get('/Company', () => ({
@@ -96,7 +96,7 @@ export default function() {
 				};
 			});
 			this.post('/Company', (schema, request) => post(company, request));
-			this.patch('/Company/:id', (schema, request) => update(company, request));
+			this.put('/Company/:id', (schema, request) => update(company, request));
 			this.delete('/Company/:id', (schema, request) => remove(company, request));
 
 			this.get('/Staff', () => ({
@@ -110,7 +110,7 @@ export default function() {
 				};
 			});
 			this.post('/Staff', (schema, request) => post(staff, request));
-			this.patch('/Staff/:id', (schema, request) => update(staff, request));
+			this.put('/Staff/:id', (schema, request) => update(staff, request));
 			this.delete('/Staff/:id', (schema, request) => remove(staff, request));
 		}
 	});

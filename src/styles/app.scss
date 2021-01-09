@@ -17,3 +17,10 @@ thead {
 .customInputWidth > div > input {
 	width: 100%;
 }
+.dropdown-toggle::after{
+	display:none !important;
+}
+
+.react-bs-table-sizePerPage-dropdown{
+	top:12px !important; 	
+}

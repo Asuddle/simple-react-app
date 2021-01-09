@@ -5,7 +5,6 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 	if (method === 'get' || method === 'delete') {
 		axios({
 			method: method,
-			// url: `api/${url}`,
 			url: `http://kndlgs.com/api/${url}`,
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
@@ -14,12 +13,11 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Credentials': true,
 				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-				'Content-Type': 'application/x-www-form-urlencoded',
+				'Content-Type': 'application/x-www-fthis.methodorm-urlencoded',
 				Accept: 'application/json'
 			}
 		})
 			.then((res) => {
-				console.log('checking here', res);
 				if (callback !== null) {
 					callback(res);
 				}
@@ -56,12 +54,10 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 					errorcallback(error);
 				}
 			});
-	} else if (method === 'patch') {
+	} else if (method === 'put') {
 		axios({
 			method: method,
 			url: `http://kndlgs.com/api/${url}`,
-			// http://kndlgs.com/api/Children
-			// url: `http://kndlgs.com/api/${url}`,
 			data: data,
 			headers: {
 				'Content-Type': 'application/json-patch+json',

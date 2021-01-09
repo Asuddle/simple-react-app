@@ -10,26 +10,21 @@ class All extends Component {
 				text: 'Id'
 			},
 			{
-				dataField: 'firstName',
-				text: 'First Name'
+				dataField: 'user.userName',
+				text: 'Username'
 			},
 			{
-				dataField: 'lastName',
-				text: 'LastName'
+				dataField: 'user.email',
+				text: 'Email'
+			},
+			{
+				dataField: 'user.phoneNumber',
+				text: 'Phone'
+			},
+			{
+				dataField: 'relation',
+				text: 'Relation'
 			}
-			// ,
-			// {
-			// 	dataField: 'price',
-			// 	text: 'Age'
-			// },
-			// {
-			// 	dataField: 'class',
-			// 	text: 'Class'
-			// },
-			// {
-			// 	dataField: 'class',
-			// 	text: 'In/Out'
-			// }
 		];
 
 		return (

@@ -1,185 +1,265 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
+import { Col, Row, Button, FormGroup, Label, Alert } from 'reactstrap';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import Toggle from 'react-toggle';
+import 'react-toggle/style.css';
 import getData from '../../components/getData';
 import { withRouter } from 'react-router';
 class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			firstName: '',
-			lastName: '',
-			relationship: '',
-			phone: '',
-			email: '',
-			reporting: '',
-			pin: ''
+			form: {
+				userName: '',
+				password: '',
+				lastName: '',
+				firstName: '',
+				dob: '',
+				occupation: '',
+				isReporting: false,
+				phoneNumber: '',
+				relationship: '',
+				email: '',
+				pin: '',
+				centerId: 5
+			},
+			error: []
 		};
 		this.method = 'post';
 	}
 	componentDidMount() {
 		if (typeof this.props.match.params.id !== 'undefined') {
-			this.method = 'patch';
+			this.method = 'put';
 			getData(
 				'get',
 				`Family/${this.props.match.params.id}`,
 				(data) => {
-					this.setState({ ...data.data });
+					let dt = data.data;
+					let form = {
+						userName: dt.user.userName,
+						password: '',
+						lastName: dt.user.lastName,
+						firstName: dt.user.firstName,
+						relationship: '',
+						isReporting: dt.isReporting,
+						phoneNumber: dt.user.phoneNumber,
+						dob: dt.user.dob.split('T')[0],
+						email: dt.user.email,
+						pin: dt.pin,
+						designation: dt.designation
+					};
+					this.setState({ form });
 				},
 				(error) => {
 					console.log(error);
 				}
 			);
-		} else this.setState({ pin: Math.floor(1000 + Math.random() * 9000) });
+		} else this.setState({ form: { ...this.state.form, pin: Math.floor(1000 + Math.random() * 9000) } });
 	}
 	handleSelect = (e) => {
-		console.log(e.target);
+		this.setState({ relationship: e.target.value });
 	};
 	handleChange = (e) => {
-		this.setState({ [e.target.name]: e.target.value });
-	};
-	handleRadio = (e) => {
-		this.setState({ reporting: e.target.id });
+		this.setState({ form: { ...this.state.form, [e.target.name]: e.target.value } });
 	};
 	handleSubmit = () => {
+		let data = this.state.form;
+		for (const key in data) {
+			if (data[key] === '' || data[key] === 0) {
+				delete data[key];
+			}
+		}
 		getData(
 			this.method,
-			this.method === 'patch' ? `Family/${this.props.match.params.id}` : 'Family',
+			this.method === 'put' ? `Family/${this.props.match.params.id}` : 'Family',
 			(data) => {
 				this.props.history.push('/app/family');
 			},
 			(error) => {
-				console.log(error);
+				let err = error.response.data;
+				let arr = [];
+				for (const key in err) {
+					arr.push(err[key]);
+				}
+
+				this.setState({ error: arr });
 			},
-			JSON.stringify(this.state)
+			JSON.stringify({ ...data, ...{ centerId: 1 } })
 		);
 	};
 	handleInvalidSubmit = (e, values) => {
 		console.log('valeuss', values);
 	};
 	render() {
+		const {
+			userName,
+			password,
+			lastName,
+			firstName,
+			relationship,
+			isReporting,
+			phoneNumber,
+			dob,
+			email,
+			pin,
+			designation
+		} = this.state.form;
 		return (
-			<AvForm onValidSubmit={this.handleSubmit} onInvalidSubmit={this.handleInvalidSubmit}>
-				<Row form>
-					<Col md={12}>
-						<h5>Full Name</h5>
-					</Col>
-					<Col md={6}>
-						<FormGroup>
-							<AvField
-								type="text"
-								name="firstName"
-								label="First Name"
-								value={this.state.firstName}
-								onChange={(e) => {
-									this.handleChange(e);
-								}}
-							/>
-						</FormGroup>
-					</Col>
-					<Col md={6}>
-						<FormGroup>
-							<AvField
-								type="text"
-								name="lastName"
-								label="Last Name"
-								value={this.state.lastName}
-								onChange={(e) => {
-									this.handleChange(e);
-								}}
-							/>
-						</FormGroup>
-					</Col>
-				</Row>
-				<Row form>
-					<Col md={12}>
-						<h5>Phone</h5>
-					</Col>
-					<Col md={12}>
-						<FormGroup className={'customInputWidth'}>
-							<PhoneInput
-								country={'us'}
-								value={this.state.phone}
-								onChange={(phone) => this.setState({ phone })}
-							/>
-						</FormGroup>
-					</Col>
-					<Col md={12}>
-						<h5>Relationship</h5>
-					</Col>
-					<Col md={12}>
-						<FormGroup>
-							<AvField type="select" name="relationship" onChange={(e) => this.handleSelect(e)}>
-								<option>Female</option>
-								<option>male</option>
-							</AvField>
-						</FormGroup>
-					</Col>
-					<Col md={12}>
-						<h5>Date Of Birth</h5>
-					</Col>
-					<Col md={12}>
-						<FormGroup>
-							<AvField
-								type="date"
-								name="DOB"
-								value={this.state.DOB}
-								onChange={(e) => this.handleChange(e)}
-							/>
-						</FormGroup>
-					</Col>
-				</Row>
-				<Row form>
-					<Col md={12}>
-						<h5>Email</h5>
-					</Col>
-					<Col md={12}>
-						<FormGroup>
-							<AvField
-								type="email"
-								name="email"
-								value={this.state.email}
-								onChange={(e) => {
-									this.handleChange(e);
-								}}
-							/>
-						</FormGroup>
-					</Col>
-				</Row>
+			<div>
+				{Array.isArray(this.state.error) &&
+					this.state.error.length > 0 &&
+					this.state.error.map((item) => <Alert color="danger">{item}</Alert>)}
+				<AvForm onValidSubmit={this.handleSubmit} onInvalidSubmit={this.handleInvalidSubmit}>
+					<Row form>
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									type="text"
+									name="UserName"
+									label="User Name"
+									value={userName}
+									validate={{
+										required: { value: true, errorMessage: 'Field is required' }
+									}}
+									onChange={(e) => {
+										this.handleChange(e);
+									}}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									type="password"
+									name="password"
+									label="Password"
+									validate={
+										this.props.match.params.id ? (
+											{}
+										) : (
+											{
+												required: { value: true, errorMessage: 'Password is required' },
+												minLength: { value: 8, errorMessage: 'Password is  greater than 8' }
+											}
+										)
+									}
+									value={password}
+									onChange={(e) => {
+										this.handleChange(e);
+									}}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									type="text"
+									name="firstName"
+									label="First Name"
+									value={firstName}
+									validate={{
+										required: { value: true, errorMessage: 'Field is required' }
+									}}
+									onChange={(e) => {
+										this.handleChange(e);
+									}}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									type="text"
+									name="lastName"
+									label="Last Name"
+									value={lastName}
+									validate={{
+										required: { value: true, errorMessage: 'Field is required' }
+									}}
+									onChange={(e) => {
+										this.handleChange(e);
+									}}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup className={'customInputWidth'}>
+								<Label>Phone Number</Label>
+								<PhoneInput
+									country={'us'}
+									value={phoneNumber}
+									onChange={(phoneNumber) =>
+										this.setState({ form: { ...this.state.form, phoneNumber: phoneNumber } })}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<Label>Relationship</Label>
+								<AvField
+									type="text"
+									name="relationship"
+									value={relationship}
+									onChange={(e) => this.handleChange(e)}
+								>
+									<option>Female</option>
+									<option>male</option>
+								</AvField>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<Label>Date Of Birth</Label>
+								<AvField type="date" name="dob" value={dob} onChange={(e) => this.handleChange(e)} />
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<Label>Email</Label>
+								<AvField
+									type="email"
+									name="email"
+									value={email}
+									onChange={(e) => {
+										this.handleChange(e);
+									}}
+								/>
+							</FormGroup>
+						</Col>
 
-				<Row form>
-					<Col md={12}>
-						<h5>Reporting Required</h5>
-					</Col>
-					<Col md={6}>
-						<CustomInput type="radio" id="1" name="customRadio" label="yes" />
-					</Col>
-					<Col md={6}>
-						<CustomInput type="radio" id="0" name="customRadio" label="no" />
-					</Col>
-				</Row>
-				<br />
-				<Row form>
-					<Col md={12}>
-						<h5>Auto Generated Pin (4 digit)</h5>
-					</Col>
-					<Col md={12}>
-						<FormGroup>
-							<AvField
-								type="text"
-								name="pin"
-								value={this.state.pin}
-								onChange={(e) => {
-									this.handleChange(e);
+						<Col md={6}>
+							<Label>Reporting Required</Label>
+							<br />
+							<Toggle
+								defaultChecked={isReporting}
+								value={isReporting}
+								id="cheese-status"
+								onChange={(event) => {
+									this.setState({ form: { ...this.state.form, isReporting: event.target.checked } });
 								}}
 							/>
-						</FormGroup>
-					</Col>
-				</Row>
-				<Button color="success">Submit</Button>
-			</AvForm>
+							<br />
+						</Col>
+
+						<Col md={6}>
+							<Label>Auto Generated Pin (4 digit)</Label>
+							<FormGroup>
+								<AvField
+									type="text"
+									name="pin"
+									value={pin}
+									onChange={(e) => {
+										this.handleChange(e);
+									}}
+								/>
+							</FormGroup>
+						</Col>
+					</Row>
+					<Button color="success">Submit</Button>
+				</AvForm>
+			</div>
 		);
 	}
 }
