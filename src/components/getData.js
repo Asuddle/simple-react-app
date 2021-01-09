@@ -13,12 +13,11 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Credentials': true,
 				'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-				'Content-Type': 'application/x-www-form-urlencoded',
+				'Content-Type': 'application/x-www-fthis.methodorm-urlencoded',
 				Accept: 'application/json'
 			}
 		})
 			.then((res) => {
-				console.log('checking here', res);
 				if (callback !== null) {
 					callback(res);
 				}
@@ -55,7 +54,7 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 					errorcallback(error);
 				}
 			});
-	} else if (method === 'patch') {
+	} else if (method === 'put') {
 		axios({
 			method: method,
 			url: `http://kndlgs.com/api/${url}`,

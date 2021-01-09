@@ -106,7 +106,7 @@ class Register extends React.Component {
 												type="email"
 												name="email"
 												validate={{
-													required: { value: true, errorMessage: 'Please enter Password' }
+													required: { value: true, errorMessage: 'Please enter Email' }
 												}}
 												value={this.state.email}
 												onChange={(e) => {

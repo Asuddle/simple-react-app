@@ -3,28 +3,25 @@ import { withRouter } from 'react-router';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Col, Row, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import getData from '../../components/getData';
+import AsyncSelect from 'react-select/async';
+
 class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			userName: '',
-			password: '',
-			lastName: '',
-			firstName: '',
-			phoneNumber: '',
-			dob: '',
-			classId: 0,
-			familyId: 0,
-			relation: '',
-			entryDate: '',
-			fileNo: '',
-			// userName: '',
-			// password: '',
-			// lastName: '',
-			// firstName: '',
-			// gender: '',
-			// dob: '',
-			// notes: '',
+			form: {
+				userName: '',
+				password: '',
+				lastName: '',
+				firstName: '',
+				phoneNumber: '',
+				dob: '',
+				classId: 0,
+				familyId: 0,
+				relation: '',
+				entryDate: '',
+				fileNo: '123'
+			},
 			error: []
 		};
 		this.method = 'post';
@@ -32,7 +29,7 @@ class Add extends Component {
 
 	componentDidMount() {
 		if (typeof this.props.match.params.id !== 'undefined') {
-			this.method = 'patch';
+			this.method = 'put';
 			getData(
 				'get',
 				`Children/${this.props.match.params.id}`,
@@ -41,7 +38,10 @@ class Add extends Component {
 					let form = {
 						userName: dt.user.userName,
 						password: '',
+						classId: dt.classId,
+						familyId: dt.familyId,
 						lastName: dt.user.lastName,
+						relation: dt.relation,
 						firstName: dt.user.firstName,
 						phoneNumber: dt.user.phoneNumber,
 						dob: dt.user.dob.split('T')[0],
@@ -49,8 +49,7 @@ class Add extends Component {
 						pin: dt.pin,
 						designation: dt.designation
 					};
-					this.setState({ ...form });
-					// this.setState({ ...data.data });
+					this.setState({ form });
 				},
 				(error) => {
 					console.log(error);
@@ -61,17 +60,21 @@ class Add extends Component {
 	}
 
 	handleSubmit = () => {
-		let data = this.state;
-		delete data['error'];
-		data['userId'] = '97b9dfd5-dd97-4ca7-980d-c0838659f3bb';
+		let data = this.state.form;
+		data['classId'] = this.state.form.classId.value;
+		data['familyId'] = this.state.form.familyId.value;
+		for (const key in data) {
+			if (data[key] === '' || data[key] === 0) {
+				delete data[key];
+			}
+		}
 		getData(
 			this.method,
-			this.method === 'patch' ? `Children/${this.props.match.params.id}` : 'Children',
+			this.method === 'put' ? `Children/${this.props.match.params.id}` : 'Children',
 			(data) => {
 				this.props.history.push('/app/Children');
 			},
 			(error) => {
-				console.log(error.response.data);
 				let err = error.response.data;
 				let arr = [];
 				for (const key in err) {
@@ -83,8 +86,57 @@ class Add extends Component {
 			JSON.stringify(data)
 		);
 	};
+	loadClassOptions = async (inputValue, callback) => {
+		await getData(
+			'get',
+			'Class',
+			(data) => {
+				let selectData = [];
+				setTimeout(() => {
+					data.data.forEach((item) => {
+						if (this.state.form.classId) {
+							if (item.id === this.state.form.classId) {
+								this.setState({
+									form: { ...this.state.form, classId: { value: item.id, label: item.name } }
+								});
+							}
+						}
+						selectData.push({ value: item.id, label: item.name });
+					});
+					callback(selectData);
+				}, 2000);
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
+	loadFamilyOption = async (inputValue, callback) => {
+		await getData(
+			'get',
+			'Family',
+			(data) => {
+				setTimeout(() => {
+					let selectData = [];
+					data.data.forEach((item) => {
+						if (item.id === this.state.form.familyId) {
+							this.setState({
+								form: { ...this.state.form, familyId: { value: item.id, label: item.user.userName } }
+							});
+						}
+						selectData.push({ value: item.id, label: item.user.userName });
+					});
+					callback(selectData);
+				}, 2000);
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
 	handleChange = (e) => {
-		this.setState({ [e.target.name]: e.target.value });
+		this.setState({ form: { ...this.state.form, [e.target.name]: e.target.value } });
+		// this.setState({ [e.target.name]: e.target.value });
 	};
 	handleSelect = (e) => {
 		console.log(e.target.value);
@@ -95,6 +147,24 @@ class Add extends Component {
 	setError = (data) => <Alert color="danger">{data}</Alert>;
 
 	render() {
+		console.log(this.state.form);
+		const {
+			userName,
+			password,
+			classId,
+			familyId,
+			lastName,
+			relation,
+			firstName,
+			phoneNumber,
+			dob,
+			gender,
+			notes,
+			entryDate,
+			email,
+			pin,
+			designation
+		} = this.state.form;
 		return (
 			<div>
 				{Array.isArray(this.state.error) &&
@@ -108,7 +178,7 @@ class Add extends Component {
 									label="User Name"
 									type="text"
 									name="userName"
-									value={this.state.userName}
+									value={userName}
 									id="exampleEmail"
 									onChange={(e) => {
 										this.handleChange(e);
@@ -122,8 +192,18 @@ class Add extends Component {
 									label="Password"
 									type="password"
 									name="password"
-									value={this.state.password}
+									value={password}
 									id="exampleEmail"
+									validate={
+										this.props.match.params.id ? (
+											{}
+										) : (
+											{
+												required: { value: true, errorMessage: 'Password is required' },
+												minLength: { value: 8, errorMessage: 'Password is  greater than 8' }
+											}
+										)
+									}
 									onChange={(e) => {
 										this.handleChange(e);
 									}}
@@ -136,7 +216,10 @@ class Add extends Component {
 									label="First Name"
 									type="text"
 									name="firstName"
-									value={this.state.firstName}
+									value={firstName}
+									validate={{
+										required: { value: true, errorMessage: 'Field is required' }
+									}}
 									id="exampleEmail"
 									onChange={(e) => {
 										this.handleChange(e);
@@ -150,20 +233,23 @@ class Add extends Component {
 									label="Last Name"
 									type="text"
 									name="lastName"
-									value={this.state.lastName}
+									value={lastName}
+									validate={{
+										required: { value: true, errorMessage: 'Field is required' }
+									}}
 									onChange={(e) => {
 										this.handleChange(e);
 									}}
 								/>
 							</FormGroup>
 						</Col>
-						<Col md={12}>
+						<Col md={6}>
 							<FormGroup>
 								<AvField
 									type="select"
 									name="gender"
 									label="Gender"
-									value={this.state.gender}
+									value={gender}
 									onChange={(e) => this.handleChange(e)}
 								>
 									<option value="">Select</option>
@@ -172,14 +258,66 @@ class Add extends Component {
 								</AvField>
 							</FormGroup>
 						</Col>
-						<Col md={12}>
+						<Col md={6}>
 							<FormGroup>
 								<AvField
 									type="date"
 									name="dob"
-									value={this.state.dob}
+									value={dob}
 									label="Date Of Birth"
 									onChange={(e) => this.handleChange(e)}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									type="date"
+									name="entryDate"
+									value={entryDate}
+									label="Entry Date"
+									onChange={(e) => this.handleChange(e)}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									label="Relation"
+									type="text"
+									name="relation"
+									value={relation}
+									onChange={(e) => {
+										this.handleChange(e);
+									}}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<Label>Class</Label>
+								<AsyncSelect
+									cacheOptions
+									defaultOptions
+									value={classId}
+									loadOptions={this.loadClassOptions}
+									onChange={(e) => {
+										this.setState({ form: { ...this.state.form, classId: e } });
+									}}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<Label>Family</Label>
+								<AsyncSelect
+									cacheOptions
+									defaultOptions
+									value={familyId}
+									loadOptions={this.loadFamilyOption}
+									onChange={(e) => {
+										this.setState({ form: { ...this.state.form, familyId: e } });
+									}}
 								/>
 							</FormGroup>
 						</Col>
@@ -189,7 +327,7 @@ class Add extends Component {
 								<AvField
 									type="textarea"
 									name="notes"
-									value={this.state.notes}
+									value={notes}
 									onChange={(e) => {
 										this.handleChange(e);
 									}}
