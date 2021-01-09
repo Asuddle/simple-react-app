@@ -62,8 +62,8 @@ class Add extends Component {
 
 	handleSubmit = () => {
 		let data = this.state.form;
-		data['classId'] = this.state.form.classId.value;
-		data['familyId'] = this.state.form.familyId.value;
+		data['classId'] = this.state.form.classId.hasOwnProperty('value') ? this.state.form.classId.value : '';
+		data['familyId'] = this.state.form.familyId.hasOwnProperty('value') ? this.state.form.familyId.value : '';
 		for (const key in data) {
 			if (data[key] === '' || data[key] === 0) {
 				delete data[key];
