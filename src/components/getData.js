@@ -2,6 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 export default function getData(method = 'get', url, callback, errorcallback, data = {}) {
 	toast.configure();
+	//This file mainly manages all the api request. it handles the error and success response
 	if (method === 'get' || method === 'delete') {
 		axios({
 			method: method,

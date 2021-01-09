@@ -10,21 +10,30 @@ class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			companyName: '',
-			address: {
-				address1: '',
-				address2: '',
-				city: '',
-				state: '',
-				postalCode: '',
-				country: ''
+			form: {
+				name: '',
+				photo: '',
+				centerType: 0,
+				phone: '',
+				email: '',
+				address: ''
 			},
-			centerName: '',
-			name: '',
-			phone: '',
-			email: '',
-			centerType: '',
-			logo: ''
+			error: []
+			// companyName: '',
+			// address: {
+			// 	address1: '',
+			// 	address2: '',
+			// 	city: '',
+			// 	state: '',
+			// 	postalCode: '',
+			// 	country: ''
+			// },
+			// centerName: '',
+			// name: '',
+			// phone: '',
+			// email: '',
+			// centerType: '',
+			// logo: ''
 		};
 		this.method = 'post';
 	}
@@ -38,9 +47,19 @@ class Add extends Component {
 			this.method = 'put';
 			getData(
 				'get',
-				`Company/${this.props.match.params.id}`,
+				`Center/${this.props.match.params.id}`,
 				(data) => {
-					this.setState({ ...data.data });
+					let dt = data.data;
+					console.log(data.data);
+					let form = {
+						name: dt.name,
+						photo: dt.photo,
+						centerType: dt.centerType,
+						phone: dt.phone,
+						email: dt.email,
+						address: dt.address
+					};
+					this.setState({ form });
 				},
 				(error) => {
 					console.log(error);
@@ -48,6 +67,33 @@ class Add extends Component {
 			);
 		}
 	}
+	handleImage = async (element) => {
+		let img = element.target.files[0];
+		console.log(img);
+		const base64 = await this.convertBase64(img);
+		this.setState({ form: { ...this.state.form, photo: base64 } });
+		// this.getBase64(element, (result) => {
+		// 	console.log(result);
+		// });
+		// var file = element.files[0];
+		// var reader = new FileReader();
+		// reader.onloadend = function() {
+		// console.log('RESULT', reader.result);
+		//   reader.readAsDataURL(file);
+		// };
+	};
+	convertBase64 = (file) => {
+		return new Promise((resolve, reject) => {
+			const fileReader = new FileReader();
+			fileReader.readAsDataURL(file);
+			fileReader.onload = () => {
+				resolve(fileReader.result);
+			};
+			fileReader.onerror = (error) => {
+				reject(error);
+			};
+		});
+	};
 	handleSelect = (e) => {
 		let address = this.state.address;
 		console.log(e.target.value);
@@ -58,26 +104,37 @@ class Add extends Component {
 		console.log('valeuss', values);
 	};
 	handleChange = (e) => {
-		this.setState({ [e.target.name]: e.target.value });
+		this.setState({ form: { ...this.state.form, [e.target.name]: e.target.value } });
 	};
 	handleSubmit = () => {
-		console.log('here', this.state);
+		let data = this.state.form;
+		for (const key in data) {
+			if (data[key] === '' || data[key] === 0) {
+				delete data[key];
+			}
+		}
 		getData(
 			this.method,
-			this.method === 'put' ? `Company/${this.props.match.params.id}` : 'Company',
+			this.method === 'put' ? `Center/${this.props.match.params.id}` : 'Center',
 			(data) => {
 				this.props.history.push('/app/company');
 			},
 			(error) => {
-				console.log(error);
+				let err = error.response.data;
+				let arr = [];
+				for (const key in err) {
+					arr.push(err[key]);
+				}
+				this.setState({ error: arr });
 			},
-			JSON.stringify(this.state)
+			JSON.stringify(data)
 		);
 	};
 	handleFile = (e) => {
 		console.log(e.target.files[0]);
 	};
 	render() {
+		const { name, photo, centerType, phone, email, address } = this.state.form;
 		return (
 			<div>
 				{Array.isArray(this.state.error) &&
@@ -86,14 +143,15 @@ class Add extends Component {
 				<AvForm onValidSubmit={this.handleSubmit} onInvalidSubmit={this.handleInvalidSubmit}>
 					<Row form>
 						<Col md={12}>
-							<h5>Company Name</h5>
-						</Col>
-						<Col md={12}>
 							<FormGroup>
 								<AvField
 									type="text"
-									name="companyName"
-									value={this.state.companyName}
+									label="Name"
+									name="name"
+									value={name}
+									validate={{
+										required: { value: true, errorMessage: 'Please enter Name' }
+									}}
 									id="exampleEmail"
 									onChange={(e) => {
 										this.handleChange(e);
@@ -101,119 +159,15 @@ class Add extends Component {
 								/>
 							</FormGroup>
 						</Col>
-						<Col md={12}>
-							<h5>Address</h5>
-						</Col>
-						<Col md={12}>
-							<FormGroup>
-								<AvField
-									type="text"
-									label="Address Line 1"
-									name="address1"
-									value={this.state.address.address1}
-									id="exampleEmail"
-									onChange={(e) => {
-										this.handleAddress(e);
-									}}
-								/>
-							</FormGroup>
-						</Col>
-						<Col md={12}>
-							<FormGroup>
-								<AvField
-									type="text"
-									label="Address Line 2"
-									name="address2"
-									value={this.state.address.address2}
-									onChange={(e) => {
-										this.handleAddress(e);
-									}}
-								/>
-							</FormGroup>
-						</Col>
-						<Col md={6}>
-							<FormGroup>
-								<AvField
-									type="text"
-									label="City/District"
-									name="city"
-									value={this.state.address.city}
-									onChange={(e) => {
-										this.handleAddress(e);
-									}}
-								/>
-							</FormGroup>
-						</Col>
-						<Col md={6}>
-							<FormGroup>
-								<AvField
-									type="text"
-									label="State/Province"
-									name="state"
-									value={this.state.address.state}
-									onChange={(e) => {
-										this.handleAddress(e);
-									}}
-								/>
-							</FormGroup>
-						</Col>
-						<Col md={6}>
-							<FormGroup>
-								<AvField
-									type="text"
-									label="Postal Code"
-									name="postalCode"
-									value={this.state.address.postalCode}
-									onChange={(e) => {
-										this.handleAddress(e);
-									}}
-								/>
-							</FormGroup>
-						</Col>
-						<Col md={6}>
-							<FormGroup>
-								<AvField
-									label="Country"
-									type="select"
-									name="country"
-									onChange={(e) => this.handleSelect(e)}
-								>
-									<option value="">Select Country</option>
-									{country.map((item) => {
-										return (
-											<option key={item.text} value={item.value}>
-												{item.text}
-											</option>
-										);
-									})}
-								</AvField>
-							</FormGroup>
-						</Col>
 					</Row>
-					<Row form>
-						<Col md={12}>
-							<h5>Center Name</h5>
-						</Col>
+					<Row>
 						<Col md={12}>
 							<FormGroup>
 								<AvField
-									type="text"
-									name="centerName"
-									value={this.state.centerName}
-									onChange={(e) => this.handleChange(e)}
-								/>
-							</FormGroup>
-						</Col>
-						<Col md={12}>
-							<h5>Name</h5>
-						</Col>
-						<Col md={6}>
-							<FormGroup>
-								<AvField
-									type="text"
-									label="First Name"
-									name="firstName"
-									value={this.state.firstName}
+									type="number"
+									label="Center Type"
+									name="centerType"
+									value={centerType}
 									onChange={(e) => this.handleChange(e)}
 								/>
 							</FormGroup>
@@ -222,77 +176,60 @@ class Add extends Component {
 							<FormGroup>
 								<AvField
 									type="text"
-									label="Last Name"
-									name="lastName"
-									value={this.state.lastName}
+									label="Phone"
+									name="phone"
+									value={phone}
+									onChange={(e) => this.handleChange(e)}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									type="email"
+									label="Email"
+									name="email"
+									validate={{
+										required: { value: true, errorMessage: 'Please enter Email' },
+										email: { value: true, errorMessage: 'Please enter valid Email' }
+									}}
+									value={email}
 									onChange={(e) => this.handleChange(e)}
 								/>
 							</FormGroup>
 						</Col>
 					</Row>
-					<Row form>
-						<Col md={12}>
-							<h5>Phone</h5>
-						</Col>
+					<Row>
 						<Col md={12}>
 							<FormGroup className={'customInputWidth'}>
-								<PhoneInput
-									country={'us'}
-									value={this.state.phone}
-									onChange={(phone) => this.setState({ phone })}
+								<AvField
+									type="text"
+									label="Address"
+									validate={{
+										required: { value: true, errorMessage: 'Please enter Address' }
+									}}
+									value={address}
+									name="address"
+									onChange={(e) => {
+										this.handleChange(e);
+									}}
 								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									type="file"
+									label="Photo"
+									name="photo"
+									// value={photo}
+									onChange={this.handleImage}
+								/>
+								{this.state.form.photo && <img src={this.state.form.photo} alt="image" width="100" />}
 							</FormGroup>
 						</Col>
 					</Row>
 
-					<Row form>
-						<Col md={12}>
-							<h5>Email</h5>
-						</Col>
-						<Col md={12}>
-							<FormGroup className={'customInputWidth'}>
-								<AvField
-									type="text"
-									value={this.state.email}
-									name="email"
-									validate={{
-										required: { value: true, errorMessage: 'Please enter Username' },
-										email: { value: true, errorMessage: 'Please enter valid Email' }
-									}}
-									onChange={(e) => {
-										this.handleChange(e);
-									}}
-								/>
-							</FormGroup>
-						</Col>
-					</Row>
-					<Row form>
-						<Col md={12}>
-							<h5>Centre Type</h5>
-						</Col>
-						<Col md={12}>
-							<FormGroup>
-								<AvField
-									type="select"
-									name="gender"
-									onChange={(e) => this.setState({ centerType: e.target.value })}
-								>
-									<option>Female</option>
-									<option>male</option>
-								</AvField>
-							</FormGroup>
-						</Col>
-					</Row>
-					<Row form>
-						<Col md={12}>
-							<h5>Centre Type</h5>
-						</Col>
-						<Col md={12}>
-							<FormGroup>
-								<AvField type="file" name="gender" onChange={(e) => this.handleFile(e)} />
-							</FormGroup>
-						</Col>
-					</Row>
 					<Button color="success">Submit</Button>
 				</AvForm>
 			</div>

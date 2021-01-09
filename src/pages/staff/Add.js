@@ -38,7 +38,7 @@ class Add extends Component {
 					let dt = data.data;
 					let form = {
 						userName: dt.user.userName,
-						password: '',
+						password: dt.user.passwordHash,
 						lastName: dt.user.lastName,
 						firstName: dt.user.firstName,
 						phoneNumber: dt.user.phoneNumber,

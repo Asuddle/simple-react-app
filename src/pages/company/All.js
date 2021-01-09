@@ -8,6 +8,11 @@ export default class All extends Component {
 				text: 'Id'
 			},
 			{
+				dataField: 'photo',
+				text: 'Photo',
+				formatter: (cell, row, rowIndex, formatExtraData) => <img src={cell} width="50" />
+			},
+			{
 				dataField: 'name',
 				text: 'Name'
 			},

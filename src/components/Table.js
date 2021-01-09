@@ -8,6 +8,7 @@ import CardHeader from 'reactstrap/lib/CardHeader';
 import CardBody from 'reactstrap/lib/CardBody';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 
+//All the tables are made through this file
 class Table extends Component {
 	constructor(props) {
 		super(props);

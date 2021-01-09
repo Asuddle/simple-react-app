@@ -60,28 +60,29 @@ class Layout extends React.Component {
 	}
 
 	handleResize() {
+		console.log(this.props);
 		if (window.innerWidth <= 768) {
-			this.props.dispatch(toggleSidebar());
+			this.props.toggleSidebar();
 		} else if (window.innerWidth >= 768) {
-			this.props.dispatch(openSidebar());
+			this.props.openSidebar();
 		}
 	}
 
 	handleCloseSidebar(e) {
 		if (e.target.closest('#sidebar-drawer') == null && this.props.sidebarOpened && window.innerWidth <= 768) {
-			this.props.dispatch(toggleSidebar());
+			this.props.toggleSidebar();
 		}
 	}
 
 	handleSwipe(e) {
 		if ('ontouchstart' in window) {
 			if (e.direction === 4) {
-				this.props.dispatch(openSidebar());
+				this.props.openSidebar();
 				return;
 			}
 
 			if (e.direction === 2 && this.props.sidebarOpened) {
-				this.props.dispatch(closeSidebar());
+				this.props.closeSidebar();
 				return;
 			}
 		}
@@ -152,4 +153,4 @@ function mapStateToProps(store) {
 	};
 }
 
-export default withRouter(connect(mapStateToProps)(Layout));
+export default withRouter(connect(mapStateToProps, { openSidebar, closeSidebar, toggleSidebar })(Layout));

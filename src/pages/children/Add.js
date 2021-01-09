@@ -37,10 +37,11 @@ class Add extends Component {
 					let dt = data.data;
 					let form = {
 						userName: dt.user.userName,
-						password: '',
+						password: dt.user.passwordHash,
 						classId: dt.classId,
 						familyId: dt.familyId,
 						lastName: dt.user.lastName,
+						entryDate: dt.entryDate.split('T')[0],
 						relation: dt.relation,
 						firstName: dt.user.firstName,
 						phoneNumber: dt.user.phoneNumber,
@@ -276,6 +277,17 @@ class Add extends Component {
 									name="entryDate"
 									value={entryDate}
 									label="Entry Date"
+									onChange={(e) => this.handleChange(e)}
+								/>
+							</FormGroup>
+						</Col>
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									type="text"
+									name="phoneNumber"
+									value={phoneNumber}
+									label="Phone Number"
 									onChange={(e) => this.handleChange(e)}
 								/>
 							</FormGroup>

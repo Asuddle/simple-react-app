@@ -31,6 +31,7 @@ class App extends React.PureComponent {
 	}
 
 	render() {
+		console.log = console.warn = console.error = function() {};
 		return (
 			<div>
 				<ToastContainer autoClose={5000} hideProgressBar closeButton={<CloseButton />} />

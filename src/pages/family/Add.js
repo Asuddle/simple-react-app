@@ -21,6 +21,7 @@ class Add extends Component {
 				isReporting: false,
 				phoneNumber: '',
 				relationship: '',
+				gender: '',
 				email: '',
 				pin: '',
 				centerId: 5
@@ -39,10 +40,10 @@ class Add extends Component {
 					let dt = data.data;
 					let form = {
 						userName: dt.user.userName,
-						password: '',
+						password: dt.user.passwordHash,
 						lastName: dt.user.lastName,
 						firstName: dt.user.firstName,
-						relationship: '',
+						gender: dt.user.gender,
 						isReporting: dt.isReporting,
 						phoneNumber: dt.user.phoneNumber,
 						dob: dt.user.dob.split('T')[0],
@@ -98,7 +99,7 @@ class Add extends Component {
 			password,
 			lastName,
 			firstName,
-			relationship,
+			gender,
 			isReporting,
 			phoneNumber,
 			dob,
@@ -197,11 +198,11 @@ class Add extends Component {
 						</Col>
 						<Col md={6}>
 							<FormGroup>
-								<Label>Relationship</Label>
+								<Label>Gender</Label>
 								<AvField
-									type="text"
-									name="relationship"
-									value={relationship}
+									type="select"
+									name="gender"
+									value={gender}
 									onChange={(e) => this.handleChange(e)}
 								>
 									<option>Female</option>
@@ -234,6 +235,7 @@ class Add extends Component {
 							<br />
 							<Toggle
 								defaultChecked={isReporting}
+								checked={isReporting}
 								value={isReporting}
 								id="cheese-status"
 								onChange={(event) => {
