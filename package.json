@@ -2,6 +2,7 @@
 	"name": "crwn-clothing",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "https://example.com/myapp",
 	"dependencies": {
 		"animate.css": "3.7.0",
 		"apexcharts": "^3.10.0",
@@ -48,7 +49,7 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"dev": "npm run development",
+		"dev": "react-scripts dev",
 		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
