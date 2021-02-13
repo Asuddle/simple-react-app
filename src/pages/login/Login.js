@@ -60,7 +60,7 @@ class Login extends React.Component {
 		// toast.success('Authenticated');
 		this.props.history.push('app/dashboard');
 		axios
-			.post('http://kndlgs.com/api/auth/login', JSON.stringify(this.state), { headers: header })
+			.post('http://api.kndlgs.com/api/auth/login', JSON.stringify(this.state), { headers: header })
 			.then((response) => {
 				console.log(response);
 				localStorage.setItem('authenticated', response.data.token);

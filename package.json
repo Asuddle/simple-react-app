@@ -1,5 +1,5 @@
 {
-	"name": "crwn-clothing",
+	"name": "kndlogs",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -7,7 +7,7 @@
 		"apexcharts": "^3.10.0",
 		"availity-reactstrap-validation": "^2.6.1",
 		"awesome-bootstrap-checkbox": "1.0.1",
-		"axios": "^0.20.0",
+		"axios": "^0.21.1",
 		"bootstrap": "4.3.1",
 		"classnames": "^2.2.6",
 		"font-awesome": "^4.7.0",
@@ -15,6 +15,7 @@
 		"line-awesome": "github:icons8/line-awesome",
 		"miragejs": "^0.1.41",
 		"moment": "^2.22.2",
+		"node-sass": "^4.14.1",
 		"rc-hammerjs": "^0.6.9",
 		"react": "^16.13.1",
 		"react-apexcharts": "^1.3.3",
@@ -25,20 +26,12 @@
 		"react-redux": "^5.0.7",
 		"react-router": "^4.3.1",
 		"react-router-dom": "^4.3.1",
-		"react-scripts": "3.4.3",
+		"react-scripts": "^3.4.4",
 		"react-toastify": "^5.4.0",
-		"react-transition-group": "^2.5.2",
 		"reactstrap": "7.1.0",
 		"redux": "^4.0.1",
-		"redux-logger": "^3.0.6",
 		"redux-thunk": "^2.3.0",
 		"yup": "^0.29.3"
-	},
-	"devDependencies": {
-		"bundle-loader": "0.5.6",
-		"css-loader": "2.1.1",
-		"node-sass": "4.12.0",
-		"sass-loader": "^7.1.0"
 	},
 	"scripts": {
 		"start": "react-scripts start",

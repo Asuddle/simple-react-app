@@ -6,7 +6,7 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 		axios({
 			method: method,
 			// url: `api/${url}`,
-			url: `http://kndlgs.com/api/${url}`,
+			url: `http://api.kndlgs.com/api/${url}`,
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
 				'Content-Type': 'text/plain',
@@ -33,7 +33,7 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 		axios({
 			method: 'post',
 			// url: `api/${url}`,
-			url: `http://kndlgs.com/api/${url}`,
+			url: `http://api.kndlgs.com/api/${url}`,
 			data: data,
 			headers: {
 				'Access-Control-Allow-Headers': '*',
@@ -59,9 +59,8 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 	} else if (method === 'patch') {
 		axios({
 			method: method,
-			url: `http://kndlgs.com/api/${url}`,
-			// http://kndlgs.com/api/Children
-			// url: `http://kndlgs.com/api/${url}`,
+			url: `api.http://kndlgs.com/api/${url}`,
+			
 			data: data,
 			headers: {
 				'Content-Type': 'application/json-patch+json',
