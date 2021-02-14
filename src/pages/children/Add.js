@@ -20,7 +20,7 @@ class Add extends Component {
 				familyId: 0,
 				relation: '',
 				entryDate: '',
-				fileNo: '123'
+				fileNo: ''
 			},
 			error: []
 		};
@@ -44,6 +44,7 @@ class Add extends Component {
 						entryDate: dt.entryDate.split('T')[0],
 						relation: dt.relation,
 						firstName: dt.user.firstName,
+						fileNo:dt.fileNo,
 						phoneNumber: dt.user.phoneNumber,
 						dob: dt.user.dob.split('T')[0],
 						email: dt.user.email,
@@ -148,7 +149,6 @@ class Add extends Component {
 	setError = (data) => <Alert color="danger">{data}</Alert>;
 
 	render() {
-		console.log(this.state.form);
 		const {
 			userName,
 			password,
@@ -164,8 +164,10 @@ class Add extends Component {
 			entryDate,
 			email,
 			pin,
+			fileNo,
 			designation
 		} = this.state.form;
+		const relationDropDown=['Brother','Sister','Father','Mother','Uncle','Aunt','Grand Father','Grand Mother']
 		return (
 			<div>
 				{Array.isArray(this.state.error) &&
@@ -295,14 +297,42 @@ class Add extends Component {
 						<Col md={6}>
 							<FormGroup>
 								<AvField
-									label="Relation"
+									label="FileNumber"
 									type="text"
+									name="fileNo"
+									value={fileNo}
+									onChange={(e) => {
+										this.handleChange(e);
+									}}
+								/>
+							</FormGroup>
+						</Col>
+						
+						<Col md={6}>
+							<FormGroup>
+								<AvField
+									label="Relation"
+									type="select"
 									name="relation"
 									value={relation}
 									onChange={(e) => {
 										this.handleChange(e);
 									}}
-								/>
+								>
+									<option value=''>Select</option>
+									{relationDropDown.map(item=>(<option value={item}>{item}</option>))}	
+									</AvField>
+								{/* <AvField
+									type="select"
+									name="gender"
+									label="Gender"
+									value={gender}
+									onChange={(e) => this.handleChange(e)}
+								>
+									<option value="">Select</option>
+									<option value="female">Female</option>
+									<option value="male">male</option>
+								</AvField> */}
 							</FormGroup>
 						</Col>
 						<Col md={6}>
@@ -333,7 +363,7 @@ class Add extends Component {
 								/>
 							</FormGroup>
 						</Col>
-						<Col md={12}>
+						{/* <Col md={12}>
 							<Label>Note</Label>
 							<FormGroup>
 								<AvField
@@ -345,7 +375,7 @@ class Add extends Component {
 									}}
 								/>
 							</FormGroup>
-						</Col>
+						</Col> */}
 					</Row>
 					<Button color="success">Submit</Button>
 				</AvForm>

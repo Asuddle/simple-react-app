@@ -6,7 +6,7 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 	if (method === 'get' || method === 'delete') {
 		axios({
 			method: method,
-			url: `http://kndlgs.com/api/${url}`,
+			url: `http://api.kndlgs.com/api/${url}`,
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('authenticated')}`,
 				'Content-Type': 'text/plain',
@@ -27,12 +27,11 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 				if (errorcallback !== null) {
 					errorcallback(error);
 				}
-			});
+			})
 	} else if (method === 'post') {
 		axios({
 			method: 'post',
-			// url: `api/${url}`,
-			url: `http://kndlgs.com/api/${url}`,
+			url: `http://api.kndlgs.com/api/${url}`,
 			data: data,
 			headers: {
 				'Access-Control-Allow-Headers': '*',
@@ -58,7 +57,7 @@ export default function getData(method = 'get', url, callback, errorcallback, da
 	} else if (method === 'put') {
 		axios({
 			method: method,
-			url: `http://kndlgs.com/api/${url}`,
+			url: `http://api.kndlgs.com/api/${url}`,
 			data: data,
 			headers: {
 				'Content-Type': 'application/json-patch+json',
